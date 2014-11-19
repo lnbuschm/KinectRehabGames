@@ -1,0 +1,20 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Game 1 - Catch eggs\Scripts\EggScript.cs">
+    <Files>
+      <File FileName="Assets\Game 1 - Catch eggs\Scripts\SpawnerScript.cs" Line="9" Column="11" />
+      <File FileName="KinectGames1.sln" Line="1" Column="1" />
+      <File FileName="Assets\Game 1 - Catch eggs\Scripts\EggScript.cs" Line="13" Column="2" />
+      <File FileName="Assets\ZigFu\Scripts\UserControls\ZigSkeleton.cs" Line="1" Column="1" />
+      <File FileName="Assets\Rehab\RehabMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Rehab\RehabGestures.cs" Line="240" Column="27" />
+      <File FileName="Assets\Game 1 - Catch eggs\Scripts\EggCollider.cs" Line="1" Column="1" />
+      <File FileName="Assets\Game 1 - Catch eggs\Scripts\BucketMover.cs" Line="1" Column="1" />
+      <File FileName="Assets\Game 1 - Catch eggs\Scripts\PlayerScript.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
