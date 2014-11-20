@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
     
-    public int theScore = 0;
+   // public int theScore = 0;
 
 	void Update () {
         //These two lines are all there is to the actual movement..

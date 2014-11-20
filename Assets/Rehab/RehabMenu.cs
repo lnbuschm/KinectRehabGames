@@ -9,14 +9,21 @@ public class RehabMenu : MonoBehaviour {
 	public GUIText leftHandGUI;
 	public GUIText scoreGUI;
 	public GUIText warningGUI;
+	public GUIText summaryLine1GUI;
+	public GUIText summaryLine2GUI;
+	public Camera camera;
 	public static int theScore = 0;
+	public static int lhScore = 0;
+	public static int rhScore = 0;
 	public static int rightHandMultiplier = 10;
 	public static int leftHandMultiplier = 1;
 	public static bool warningRH = false;
 	public static bool warningLH = false;
+	public int menuTime = 5000;  // in ms
 	static Timer _multiplierTimer; // From System.Timers
 	
 	Timer _textTimer1; 
+	Timer _menuTimer1; 
 
 	static int pointValue = 1;
 
@@ -63,12 +70,66 @@ public class RehabMenu : MonoBehaviour {
 		rightHandMultiplier = multipliers [rand1] [0];
 		leftHandMultiplier = multipliers [rand1] [1];
 	}
+	private bool summaryScreenToggle = false;
+
+	private int menuScreenCount = 0;
+	void _menuTimer1_Elapsed(object sender, ElapsedEventArgs e)
+	{
+
+		_menuTimer1.Stop ();
+		summaryScreenToggle = true;
+	}
+	bool showNextRoundScreen1 = false;
+	void showNextRoundScreen(){
+	//	Debug.Log ("SHOW NEXT ROUND SCREEN!!");
+		//	summaryScreenToggle = true;
+	//	camera.transform.Rotate (new Vector3 (0, 180, 0));
+
+		//  randomize the next round difficulty
+
+		if (RehabGestures.rightHandDominant) {
+						summaryLine1GUI.text = "Eggs will fall FAST when you use your right side";
+						summaryLine2GUI.text = "Eggs will fall SLOW if you use your left side";
+				} else {
+
+						summaryLine1GUI.text = "Eggs will fall SLOW when you use your right side";
+						summaryLine2GUI.text = "Eggs will fall FAST if you use your left side";
+				}
+
+		scoreGUI.text = "The next round is about to begin";
+		_menuTimer1.Start ();
+		showNextRoundScreen1 = false;
+	}
+		
+	void showRoundSummaryScreen() {
+	//	Debug.Log ("SHOW ROUDN SUMMARY!!");
+	//	summaryScreenToggle = true;
+		Time.timeScale = 0;
+		camera.transform.Rotate (new Vector3 (0, 180, 0));
+		int strongScore = 0;
+
+		int weakScore = 0;
+		if (RehabGestures.rightHandDominant) {
+						strongScore = rhScore;
+						weakScore = lhScore;
+				} else {
+						strongScore = lhScore;
+						weakScore = rhScore;
+				}
+		summaryLine1GUI.text =  "You caught " + strongScore + " eggs with your strong side!";
+		summaryLine2GUI.text =  "You caught " + weakScore + " eggs with your weak side!";
+		scoreGUI.text = "Total Score: " + theScore;
+		_menuTimer1.Start ();
+	}
 
 	public static void Score() {
-		if (RehabGestures.rightHandActive)
+		if (RehabGestures.rightHandActive) {
+			rhScore++;
 						theScore += rightHandMultiplier * pointValue;
-				else
+				} else {
+			lhScore++;
 						theScore += leftHandMultiplier * pointValue;
+				}
 	}
 
 	//OnGUI is called multiple times per frame. Use this for GUI stuff only!
@@ -78,6 +139,27 @@ public class RehabMenu : MonoBehaviour {
 		//It would be nicer to have a seperate script dedicated to the GUI though...
 		//GUILayout.Label(
 		//GUILayout.Label("Score: " + theScore);
+
+		if (summaryScreenToggle) {
+			menuScreenCount++;
+			summaryScreenToggle=false;
+			if (menuScreenCount == 1) {
+				showNextRoundScreen1 = true;
+			
+			} 
+			else {
+				camera.transform.Rotate (new Vector3 (0, 180, 0));
+				Time.timeScale=1;
+				summaryLine1GUI.text = "";
+				summaryLine2GUI.text = "";
+				scoreGUI.text = "";
+				menuScreenCount = 0;
+			}
+
+
+		}
+		if (showNextRoundScreen1) showNextRoundScreen();
+
 		rightHandGUI.text = "Right Hand: " + rightHandMultiplier + "X";
 		leftHandGUI.text = "Left Hand : " + leftHandMultiplier + "X";
 
@@ -90,7 +172,7 @@ public class RehabMenu : MonoBehaviour {
 			rightHandGUI.color = Color.black;
 		}
 
-		scoreGUI.text = "Score: " + theScore;
+	//	scoreGUI.text = "Score: " + theScore;
 
 		if (warningRH || warningLH) {
 			warningGUI.text = "Keep Hand Level";
@@ -126,7 +208,14 @@ public class RehabMenu : MonoBehaviour {
 		_textTimer1.Elapsed += new ElapsedEventHandler(_textTimer1_Elapsed);
 		_textTimer1.Enabled = true; // Enable it
 
-		scoreGUI.pixelOffset = new Vector2(-Screen.width/2+guiPadding , Screen.height/2-guiPadding);
+		_menuTimer1 = new Timer(menuTime); // Set up the timer for 3 seconds
+		_menuTimer1.Elapsed += new ElapsedEventHandler(_menuTimer1_Elapsed);
+		_menuTimer1.Enabled = true; // Enable it
+
+	//	showNextRoundScreen ();
+		showRoundSummaryScreen ();
+
+	//	scoreGUI.pixelOffset = new Vector2(-Screen.width/2+guiPadding , Screen.height/2-guiPadding);
 		rightHandGUI.pixelOffset = new Vector2(Screen.width/2-guiPadding , Screen.height/2-guiPadding);
 		leftHandGUI.pixelOffset = new Vector2(Screen.width/2-guiPadding , Screen.height/2-rightHandGUI.fontSize-2*guiPadding);
 	}

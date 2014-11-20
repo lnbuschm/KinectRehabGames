@@ -20,7 +20,7 @@ public class EggCollider : MonoBehaviour {
 
 		Destroy (theCollision.gameObject);
 	//	RehabMenu.theScore++;
-        myPlayerScript.theScore++;
+    //    myPlayerScript.theScore++;
 		RehabMenu.Score ();
     }
 }
