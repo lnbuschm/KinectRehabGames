@@ -14,12 +14,18 @@ public class EggScript : MonoBehaviour {
 
     //Update is called by Unity every frame
 	void Update () {
-		System.Random rand = new System.Random ();
-		
-		float randFallSpeed = (float)rand.NextDouble () * (maxFallSpeed - minFallSpeed) + minFallSpeed;
+		// random fall speed, between given threshold
+//		System.Random rand = new System.Random ();
+//		float randFallSpeed = (float)rand.NextDouble () * (maxFallSpeed - minFallSpeed) + minFallSpeed;
+//		float fallSpeed = randFallSpeed * Time.deltaTime;
+		if (Time.timeScale == 0) {
+		//	Debug.Log ("EGgscript Destroy!");
+			Destroy (gameObject);
+		}
+		// fall speed based on difficulty
+		float fallSpeed = (float)RehabMenu.GetDifficulty () * 1.2f * Time.deltaTime;
+	//	Debug.Log("Difficulty: " + RehabMenu.GetDifficulty());
 
-
-		float fallSpeed = randFallSpeed * Time.deltaTime;
        // float fallSpeed = 2 * Time.deltaTime;
         transform.position -= new Vector3(0, fallSpeed, 0);
 
@@ -27,7 +33,9 @@ public class EggScript : MonoBehaviour {
         {
             //Destroy this gameobject (and all attached components)
             Destroy(gameObject);
+
 			//Debug.Log ("YOlo destroy");
         }
+
 	}
 }

@@ -1,13 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Rehab\RehabMenu.cs">
     <Files>
-      <File FileName="Assets\Rehab\RehabMenu.cs" Line="16" Column="32" />
-      <File FileName="Assets\Game 1 - Catch eggs\Scripts\EggScript.cs" Line="12" Column="35" />
-      <File FileName="Assets\Game 1 - Catch eggs\Scripts\EggCollider.cs" Line="20" Column="3" />
-      <File FileName="Assets\Game 1 - Catch eggs\Scripts\PlayerScript.cs" Line="6" Column="6" />
-      <File FileName="Assets\Rehab\RehabGestures.cs" Line="105" Column="3" />
-      <File FileName="Assets\Game 1 - Catch eggs\Scripts\SpawnerScript.cs" Line="14" Column="18" />
+      <File FileName="Assets\Rehab\RehabMenu.cs" Line="192" Column="5" />
+      <File FileName="Assets\Rehab\RehabGestures.cs" Line="119" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

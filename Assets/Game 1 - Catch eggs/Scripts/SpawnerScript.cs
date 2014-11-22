@@ -6,12 +6,13 @@ public class SpawnerScript : MonoBehaviour {
     public Transform eggPrefab;
 
     private float nextEggTime = 0.0f;
-    public float spawnRate = 1.5f;
+    public float spawnRate = 1.4f;
 	
-	public float eggSpawnMin = -2.0f;
-	public float eggSpawnMax = 2.0f;
+	public float eggSpawnMin = -2.2f;
+	public float eggSpawnMax = 2.2f;
 
 	void Update () {
+	//	spawnRate = RehabMenu.GetDifficulty ();
         if (nextEggTime < Time.time)
         {
             SpawnEgg();

@@ -28,6 +28,7 @@ public class RehabGestures : MonoBehaviour {
 
 	private float[] transformVelocity;
 	private float[][] transformPosition;
+	private float[][] transformRelPosition;
 	private ZigInputJoint[] prevJoints;
 	private Vector3 prevLeftHand;
 	private Vector3 prevRightHand;
@@ -101,6 +102,24 @@ public class RehabGestures : MonoBehaviour {
 		transformPosition [(int)joint.Id][1] = (joint.Position.y + prevPositionY * positionAvgDampfactor) / (positionAvgDampfactor + 1);
 		return transformPosition [(int)joint.Id][1];  // returns y 
 	}
+
+
+	
+	float[][] TrackAvgRelPosition(ZigSkeleton userSkeleton) {
+	//	if (joint.GoodPosition == false) {
+	//		Debug.LogWarning("Attemping to calculate distance from bad position");
+			//return 0.0f;
+	//	}
+		float prevRelPositionX = transformPosition[(int)ZigJointId.LeftHand][0];
+		float prevRelPositionY = transformPosition[(int)ZigJointId.LeftHand][1];
+		//float relPos = joint.Position.x
+		//transformRelPosition [(int)joint.Id][0] = (joint.Position.x + prevRelPositionX * positionAvgDampfactor) / (positionAvgDampfactor + 1);
+		
+	//	transformRelPosition [(int)joint.Id][1] = (joint.Position.y + prevRelPositionY * positionAvgDampfactor) / (positionAvgDampfactor + 1);
+		return transformRelPosition;  // returns y 
+	}
+
+
 	void Zig_UpdateUser(ZigTrackedUser user)
 	{
 		if (user.SkeletonTracked)
@@ -126,6 +145,7 @@ public class RehabGestures : MonoBehaviour {
 					rightHandActive = false;
 				}
 */
+				if (Time.timeScale == 0) return;  // return if game is not yet active (summary or nextround screen)
 				// try comparing hands with position
 				float yRH =  TrackAvgPosition( RHjoint);
 				float yLH =  TrackAvgPosition(LHjoint);
@@ -142,7 +162,7 @@ public class RehabGestures : MonoBehaviour {
 
 				if (rightHandActive) {
 					float velRHy = TrackAvgYVelocity(prevJoints[(int)RHjoint.Id], RHjoint, timeDelta);
-					Debug.Log("y RH Vel: " + velRHy);
+	//				Debug.Log("y RH Vel: " + velRHy);
 		//			if (velRHy > wrongDirectionVelocityThreshold ) RehabMenu.EnableRHWarning();
 				//	if (velRHy > wrongDirectionVelocityThreshold ) myRehabMenu.EnableRHWarning();
 					if (velRHy > wrongDirectionVelocityThreshold) {
@@ -157,7 +177,7 @@ public class RehabGestures : MonoBehaviour {
 						GameObject.Find ("RehabMenu").SendMessage("EnableLHWarning");
 					}
 
-					Debug.Log("y LH Vel: " + velLHy);
+//					Debug.Log("y LH Vel: " + velLHy);
 				}
 
 			}
