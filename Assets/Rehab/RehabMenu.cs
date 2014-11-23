@@ -183,6 +183,8 @@ public class RehabMenu : MonoBehaviour {
 
 		    if (menuScreenCount > 8) {
 				summaryLine1GUI.text = "GAME OVER!!!";
+				summaryLine2GUI.text = "";
+				scoreGUI.text = "Total points scored: " + RehabMenu.theScore;
 			}
 			else if (menuScreenCount % 2 == 1) { // == 1) {
 				showNextRoundScreen1 = true;
@@ -191,6 +193,7 @@ public class RehabMenu : MonoBehaviour {
 			else {
 				camera.transform.Rotate (new Vector3 (0, 180, 0));
 				Time.timeScale=1;
+				SpawnerScript.autoSpawn = true;
 				summaryLine1GUI.text = "";
 				summaryLine2GUI.text = "";
 				scoreGUI.text = "";

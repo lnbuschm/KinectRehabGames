@@ -151,6 +151,7 @@ public class ZigSkeleton : MonoBehaviour
 
     void Start()
     {
+		Scale *= RehabGestures.moveSensitivity;  // Added LNB 11/22/2014
         // start out in calibration pose
         if (RotateToPsiPose)
         {

@@ -2,14 +2,16 @@
 using System.Collections;
 using System;
 using System.Timers;
-
+// Y position bias: 2.25
 public class RehabGestures : MonoBehaviour {
+	public static float moveSensitivity = 2.0f;
 	public static Boolean rightHandDominant = true;
 	public static Boolean rightHandActive = true;
 	public float velocityAvgDampfactor = 25.0f;
 	public float positionAvgDampfactor = 15.0f;
 	public static float xHandOffset = 140.0f;
-
+	public static float pointerXpos = 0.0f;
+	public static float pointerYpos = 0.0f;
 
 	public float timedBufferSize = 0.5f;
 	public float minSteadyTime = 0.1f;
@@ -34,12 +36,6 @@ public class RehabGestures : MonoBehaviour {
 	private Vector3 prevRightHand;
 	private DateTime prevTime;
 	public float noiseThreshold = 6.0f;
-
-	Boolean isRightHandHigher(ZigInputJoint LH, ZigInputJoint RH) {
-
-
-		return true;
-	}
 
 	float TrackAvgXVelocity(ZigInputJoint joint1, ZigInputJoint joint2, float timeDelta) {
 
@@ -88,7 +84,7 @@ public class RehabGestures : MonoBehaviour {
 		return transformVelocity [(int)joint2.Id];
 	}
 
-	float TrackAvgPosition(ZigInputJoint joint) {
+	float[] TrackAvgPosition(ZigInputJoint joint) {
 
 		if (joint.GoodPosition == false) {
 			Debug.LogWarning("Attemping to calculate distance from bad position");
@@ -100,26 +96,45 @@ public class RehabGestures : MonoBehaviour {
 		transformPosition [(int)joint.Id][0] = (joint.Position.x + prevPositionX * positionAvgDampfactor) / (positionAvgDampfactor + 1);
 
 		transformPosition [(int)joint.Id][1] = (joint.Position.y + prevPositionY * positionAvgDampfactor) / (positionAvgDampfactor + 1);
-		return transformPosition [(int)joint.Id][1];  // returns y 
+		return transformPosition [(int)joint.Id];  // returns array as { x , y} 
 	}
 
 
 	
-	float[][] TrackAvgRelPosition(ZigSkeleton userSkeleton) {
+	float[][] TrackAvgRelPosition(ZigInputJoint[] userSkeleton) {
 	//	if (joint.GoodPosition == false) {
 	//		Debug.LogWarning("Attemping to calculate distance from bad position");
 			//return 0.0f;
 	//	}
-		float prevRelPositionX = transformPosition[(int)ZigJointId.LeftHand][0];
-		float prevRelPositionY = transformPosition[(int)ZigJointId.LeftHand][1];
-		//float relPos = joint.Position.x
+		foreach (ZigInputJoint joint in userSkeleton) {
+						// create a running average velocity to decide on a dominant hand
+		//	if (joint.Id == ZigJointId.Torso) continue;
+			if (joint.Id == ZigJointId.LeftHand || joint.Id == ZigJointId.RightHand) {
+				float prevRelPositionX = transformRelPosition[(int)joint.Id][0];
+				float prevRelPositionY = transformRelPosition[(int)joint.Id][1];
+				float relPositionX = Math.Abs( userSkeleton[(int)ZigJointId.Torso].Position.x - joint.Position.x );
+				float relPositionY = Math.Abs( userSkeleton[(int)ZigJointId.Torso].Position.y - joint.Position.y );
+			//	Debug.Log("relPosition Y: " + relPositionY);
+				if (joint.GoodPosition == false) Debug.Log(" BAD POSITION!!!" );
+				transformRelPosition [(int)joint.Id][0] = (relPositionX + prevRelPositionX * positionAvgDampfactor) / (positionAvgDampfactor + 1);
+				transformRelPosition [(int)joint.Id][1] = (relPositionY + prevRelPositionY * positionAvgDampfactor) / (positionAvgDampfactor + 1);
+			//	Debug.Log("transformRelPosition Y: " + transformRelPosition [(int)joint.Id][1]	);
+			}
+
+		}
+	//	Debug.Log("Distance from Torso:  LH y: " + transformRelPosition [(int)ZigJointId.LeftHand][1] +
+	//		" RH y: " +  transformRelPosition [(int)ZigJointId.RightHand] [1]  );
+
+
+
+		          //float relPos = joint.Position.x
 		//transformRelPosition [(int)joint.Id][0] = (joint.Position.x + prevRelPositionX * positionAvgDampfactor) / (positionAvgDampfactor + 1);
 		
 	//	transformRelPosition [(int)joint.Id][1] = (joint.Position.y + prevRelPositionY * positionAvgDampfactor) / (positionAvgDampfactor + 1);
-		return transformRelPosition;  // returns y 
+		return transformRelPosition;  
 	}
 
-
+//	public RehabGestures 
 	void Zig_UpdateUser(ZigTrackedUser user)
 	{
 		if (user.SkeletonTracked)
@@ -146,6 +161,7 @@ public class RehabGestures : MonoBehaviour {
 				}
 */
 				if (Time.timeScale == 0) return;  // return if game is not yet active (summary or nextround screen)
+				/*
 				// try comparing hands with position
 				float yRH =  TrackAvgPosition( RHjoint);
 				float yLH =  TrackAvgPosition(LHjoint);
@@ -157,9 +173,33 @@ public class RehabGestures : MonoBehaviour {
 				 else if (yLH > yRH && rightHandActive==true){
 					Debug.Log ("LEFT HAND DOMINANT ACTIVATED!");
 					rightHandActive = false;
-				                                         }
-				//if (RHjoint.Position.x > LHjoint.Position.x)
+				 }
+				*/
+				// Compare left and right hands with torso joint for relative position
+				float[][] relPosArr = TrackAvgRelPosition(user.Skeleton);
+				if (relPosArr[(int)ZigJointId.LeftHand][1] > relPosArr[(int)ZigJointId.RightHand][1] && rightHandActive==false) {
+					Debug.Log ("RIGHT HAND DOMINANT ACTIVATED!");
+					rightHandActive = true;
+				}
+				//	SendMessage (
+				else if (relPosArr[(int)ZigJointId.RightHand][1] > relPosArr[(int)ZigJointId.LeftHand][1] && rightHandActive==true){
+					Debug.Log ("LEFT HAND DOMINANT ACTIVATED!");
+					rightHandActive = false;
+				}
 
+
+				// Set cursor position for menu control
+				if (rightHandActive) { 
+					RehabGestures.pointerXpos =  TrackAvgPosition( RHjoint)[0];
+					RehabGestures.pointerYpos =  TrackAvgPosition( RHjoint)[1];
+				}
+				else {
+					RehabGestures.pointerXpos =  TrackAvgPosition( LHjoint)[0];
+					RehabGestures.pointerYpos =  TrackAvgPosition( LHjoint)[1];
+				}
+
+			
+				// check for too much motion in y direction for game 1
 				if (rightHandActive) {
 					float velRHy = TrackAvgYVelocity(prevJoints[(int)RHjoint.Id], RHjoint, timeDelta);
 	//				Debug.Log("y RH Vel: " + velRHy);
@@ -253,11 +293,15 @@ public class RehabGestures : MonoBehaviour {
 	void Start () {
 //		points = new TimedBuffer<Vector3>(timedBufferSize);
 		int jointCount = Enum.GetNames(typeof(ZigJointId)).Length;
-		
+
 		transformVelocity = new float[jointCount];
 		transformPosition = new float[jointCount][];
 		transformPosition [(int)ZigJointId.LeftHand] = new float[2];
 		transformPosition [(int)ZigJointId.RightHand] = new float[2];
+
+		transformRelPosition = new float[jointCount][];
+		transformRelPosition [(int)ZigJointId.LeftHand] = new float[2];
+		transformRelPosition [(int)ZigJointId.RightHand] = new float[2];
 
 		for (int i=0; i<jointCount; i++)
 						transformVelocity [i] = 0.0f;

@@ -19,6 +19,7 @@ public class EggCollider : MonoBehaviour {
     //    Destroy(collisionGO);
 
 		Destroy (theCollision.gameObject);
+		GameObject.Find ("SpawnObject").SendMessage("SpawnEgg");
 	//	RehabMenu.theScore++;
     //    myPlayerScript.theScore++;
 		RehabMenu.Score ();

@@ -67,6 +67,7 @@
      <Compile Include="Assets\Game 5 - Shooting gallery\Scripts\ObjectSpawner.cs" />
      <Compile Include="Assets\Game 5 - Shooting gallery\Scripts\PlayerInput.cs" />
      <Compile Include="Assets\MainMenu\MainMenuScript.cs" />
+     <Compile Include="Assets\Rehab\GameSelect.cs" />
      <Compile Include="Assets\Rehab\RehabGestures.cs" />
      <Compile Include="Assets\Rehab\RehabMenu.cs" />
      <Compile Include="Assets\Rehab\Singleton.cs" />
