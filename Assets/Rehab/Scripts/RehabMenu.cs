@@ -194,6 +194,7 @@ public class RehabMenu : MonoBehaviour {
 				camera.transform.Rotate (new Vector3 (0, 180, 0));
 				Time.timeScale=1;
 				SpawnerScript.autoSpawn = true;
+				EggPitchSpawn.autoSpawn = true;
 				summaryLine1GUI.text = "";
 				summaryLine2GUI.text = "";
 				scoreGUI.text = "";
