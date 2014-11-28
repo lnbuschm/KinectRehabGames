@@ -46,7 +46,7 @@ public class BallThrow : MonoBehaviour {
 			//Destroy this gameobject (and all attached components)
 			Destroy(gameObject);
 			GameObject.Find ("EggPitchSpawn").SendMessage("SpawnEgg");
-			//Debug.Log ("YOlo destroy");
+			Debug.Log ("ERROR:  BAll pitch script is running");
 		}
 	}
 }

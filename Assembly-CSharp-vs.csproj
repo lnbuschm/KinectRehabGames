@@ -67,7 +67,9 @@
      <Compile Include="Assets\Game 5 - Shooting gallery\Scripts\ObjectSpawner.cs" />
      <Compile Include="Assets\Game 5 - Shooting gallery\Scripts\PlayerInput.cs" />
      <Compile Include="Assets\MainMenu\MainMenuScript.cs" />
+     <Compile Include="Assets\Rehab\Scripts\BGMusic.cs" />
      <Compile Include="Assets\Rehab\Scripts\BallThrow.cs" />
+     <Compile Include="Assets\Rehab\Scripts\BatCollision.cs" />
      <Compile Include="Assets\Rehab\Scripts\EggPitch.cs" />
      <Compile Include="Assets\Rehab\Scripts\EggPitchSpawn.cs" />
      <Compile Include="Assets\Rehab\Scripts\GameSelect.cs" />
@@ -106,6 +108,7 @@
      <None Include="Assets\Standard Assets\Blob-Shadow\ShadowProjection.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Standard Assets\Water\Sources\FX-Water Simple.shader" />
+     <None Include="Assets\Rehab\Materials\star.obj.txt" />
      <None Include="Assets\Standard Assets\Gem Rendering\diamond shader.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>

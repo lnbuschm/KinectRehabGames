@@ -50,6 +50,7 @@
      <None Include="Assets\Standard Assets\Blob-Shadow\ShadowProjection.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Standard Assets\Water\Sources\FX-Water Simple.shader" />
+     <None Include="Assets\Rehab\Materials\star.obj.txt" />
      <None Include="Assets\Standard Assets\Gem Rendering\diamond shader.shader" />
  <Reference Include="OpenNI.Net">
  <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/ZigFu/Scripts/_Internal/OpenNI.Net.dll</HintPath>

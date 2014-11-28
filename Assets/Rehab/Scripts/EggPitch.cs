@@ -24,8 +24,8 @@ public class EggPitch : MonoBehaviour {
 		//		System.Random rand = new System.Random ();
 		//		float randFallSpeed = (float)rand.NextDouble () * (maxFallSpeed - minFallSpeed) + minFallSpeed;
 		//		float throwSpeed = randFallSpeed * Time.deltaTime;
-		if (Time.timeScale == 0) {
-			//	Debug.Log ("EGgscript Destroy!");
+		if (Time.timeScale == 0.0f) {
+				Debug.Log (" Destroy Pitch!");
 			Destroy (gameObject);
 			return;
 		}
@@ -55,7 +55,7 @@ public class EggPitch : MonoBehaviour {
 			//Destroy this gameobject (and all attached components)
 			Destroy(gameObject);
 			GameObject.Find ("EggPitchSpawn").SendMessage("SpawnEgg");
-			//Debug.Log ("YOlo destroy");
+			Debug.Log ("Egg missed and destroyed");
 		}
 		
 	}

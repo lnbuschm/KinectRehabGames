@@ -252,13 +252,43 @@ public class ZigSkeleton : MonoBehaviour
             {
 				if (joint.Id == ZigJointId.RightHand && RehabGestures.rightHandActive == false) continue;
 				else if (joint.Id == ZigJointId.LeftHand && RehabGestures.rightHandActive == true) continue;
-
+				else if (joint.Id == ZigJointId.RightElbow && RehabGestures.rightHandActive == false) {
+				//	Debug.Log ("Skipping Right Elbow");
+					continue;
+				}
+				else if (joint.Id == ZigJointId.LeftElbow && RehabGestures.rightHandActive == true) continue;
 
                 if (joint.GoodPosition) {
 					// if RightHand is default hand, add offset for Left hand position (x direction)
 					if (RehabGestures.rightHandDominant && joint.Id == ZigJointId.LeftHand) {
 						joint.Position.x += RehabGestures.xHandOffset;
 						UpdatePosition(joint.Id, joint.Position);
+				//		Debug.Log ("Left elbow offset:");
+					}
+					else if (RehabGestures.rightHandDominant &&  joint.Id == ZigJointId.LeftElbow) {
+						joint.Position.x += RehabGestures.xElbowOffset;
+						UpdatePosition(joint.Id, joint.Position);
+
+						/*
+						var lookPos = target.position - transform.position;
+						lookPos.y = 0;
+						var rotation = Quaternion.LookRotation(lookPos);
+						rotation *= Quaternion.Euler(0, 90, 0); // this add a 90 degrees Y rotation
+						var adjustRotation = transform.rotation.y + rotationAdjust; //<- this is wrong!
+						transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
+*/						
+						//Quaternion  rotation = Quaternion.LookRotation(
+					//	joint.Rotation.y += 180.0f;
+						initialRotations[(int)ZigJointId.LeftElbow] = Quaternion.Euler(new Vector3(0,270,0));
+	//					joint.Rotation.SetLookRotation(new Vector3(0,180,0));
+
+	//					joint.Rotation.Set(joint.Rotation.x,joint.Rotation.y+180.0f,joint.Rotation.z,joint.Rotation.w);
+		//				GameObject.Find ("Baseball Bat").transform.Rotate(new Vector3(0,180.0f,0));
+				//		gameObject.
+				//		GameObject.Find ("Baseball Bat").transform.RotateAround (transform.position, transform.up, 180f);
+				//		transform.RotateAround (transform.position, transform.up, 180f);
+					//	UpdateRotation(joint.Id, Quaternion.identity);
+						//		Debug.Log ("Left elbow offset:");
 					}
 					else UpdatePosition(joint.Id, joint.Position);
 

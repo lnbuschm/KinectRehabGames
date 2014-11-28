@@ -21,6 +21,8 @@ public class RehabMenu : MonoBehaviour {
 	public static bool warningLH = false;
 	public int menuTime = 5000;  // in ms
 	public Timer _roundTimer; // From System.Timers
+	public int gameNumber;
+	public static int currentGame;
 	static System.Random rand = new System.Random ();
 	static Boolean roundEnd = false; // start on nextRound screen
 	Timer _textTimer1; 
@@ -195,6 +197,7 @@ public class RehabMenu : MonoBehaviour {
 				Time.timeScale=1;
 				SpawnerScript.autoSpawn = true;
 				EggPitchSpawn.autoSpawn = true;
+				Debug.Log ("RehabMenu Autospawn"); 
 				summaryLine1GUI.text = "";
 				summaryLine2GUI.text = "";
 				scoreGUI.text = "";
@@ -228,10 +231,13 @@ public class RehabMenu : MonoBehaviour {
 
 		if (warningRH || warningLH) {
 			warningGUI.text = "Keep Hand Level";
+	//		Time.timeScale = 0.01f;
 	//		Debug.LogWarning ("WARNING GUI ENABLED");
 		}
-		else warningGUI.text = "";
-			//	warningGUI.enabled = false;
+		else {
+			warningGUI.text = "";
+	//		Time.timeScale = 1;
+		}	//	warningGUI.enabled = false;
 					
 
 
@@ -268,6 +274,8 @@ public class RehabMenu : MonoBehaviour {
 		Debug.Log ("Difficulty sequence: " + difficultySequence);
 
 		roundNum = 0; // begin at -1
+
+		RehabMenu.currentGame = gameNumber;
 
 		showNextRoundScreen ();
 		Time.timeScale = 0;

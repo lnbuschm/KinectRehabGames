@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class EggScript : MonoBehaviour {
+//[RequireComponent(typeof(AudioSource))]
 
+public class EggScript : MonoBehaviour {
+	public AudioClip eggMissSound;
     void Awake()
     {
         //rigidbody.AddForce(new Vector3(0, -100, 0), ForceMode.Force);
@@ -27,12 +29,19 @@ public class EggScript : MonoBehaviour {
 		if (Time.timeScale == 0) {
 		//	Debug.Log ("EGgscript Destroy!");
 			Destroy (gameObject);
+			return;
 		}
 		// fall speed based on difficulty
 	//	float fallSpeed =  0.7094323671f * Mathf.Log((float)RehabMenu.GetDifficulty ()) + 1.4f * Time.deltaTime;
-		float fallSpeed =   (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty()) + 1.455748877f ) * Time.deltaTime;
-	//	float fallSpeed =  3.25f * Time.deltaTime;
 
+		// Fall speed for egg game catch 1 
+		//      float fallSpeed =   (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty()) + 1.455748877f ) * Time.deltaTime;
+
+		float fallSpeed =   (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty()) + 1.455748877f ) * Time.deltaTime;
+	
+		if (RehabMenu.currentGame == 4) {
+			fallSpeed =  (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty())+1.45f ) * Time.deltaTime;
+		}
 		//float fallSpeed =  2.0f * Time.deltaTime;
 		//	Debug.Log("Fall Speed: " + fallSpeed);
 
@@ -42,13 +51,30 @@ public class EggScript : MonoBehaviour {
        // float fallSpeed = 2 * Time.deltaTime;
         transform.position -= new Vector3(0, fallSpeed, 0);
 
-        if (transform.position.y < -1 || transform.position.y >= 20)
-        {
-            //Destroy this gameobject (and all attached components)
-            Destroy(gameObject);
-			GameObject.Find ("SpawnObject").SendMessage("SpawnEgg");
-			//Debug.Log ("YOlo destroy");
-        }
+		if (RehabMenu.currentGame == 1) {
+	        if (transform.position.y < -1 || transform.position.y >= 20)
+	        {
+				GameObject.Find ("SoundFX").audio.PlayOneShot(eggMissSound, 1.0f);
+			//	audio.PlayOneShot(eggMissSound, 1.0f);
+	            //Destroy this gameobject (and all attached components)
+	            Destroy(gameObject);
+				GameObject.Find ("SpawnObject").SendMessage("SpawnEgg");
 
+				//Debug.Log ("YOlo destroy");
+	        }
+		}
+		else if (RehabMenu.currentGame == 4) {
+			if (transform.position.y < -1 || transform.position.y >= 20)
+			{
+				GameObject.Find ("SoundFX").audio.PlayOneShot(eggMissSound, 1.0f);
+				//	audio.PlayOneShot(eggMissSound, 1.0f);
+				//Destroy this gameobject (and all attached components)
+				Destroy(gameObject);
+				GameObject.Find ("SpawnObject").SendMessage("SpawnEgg");
+				
+				//Debug.Log ("YOlo destroy");
+			}
+		}
+		
 	}
 }

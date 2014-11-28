@@ -15,8 +15,9 @@ public class EggPitchSpawn : MonoBehaviour {
 	void Update () {
 		//	spawnRate = RehabMenu.GetDifficulty ();
 		//       if (nextEggTime < Time.time)
-		if (Time.timeScale != 0  && autoSpawn == true)
+		if (Time.timeScale != 0.0f  && autoSpawn == true)
 		{
+			Debug.Log ("Auto spawn one egg");
 			SpawnEgg();   // only spawn a new egg when one is destroyed
 			//	nextEggTime =  Time.time + spawnRate;
 			EggPitchSpawn.autoSpawn = false;  // spawn 1 egg to start
@@ -27,6 +28,7 @@ public class EggPitchSpawn : MonoBehaviour {
 		}
 	}
 	void Start () {
+	//	RehabMenu.currentGame = 3;
 		//	SpawnEgg(); 
 		//	Debug.Log (" SSOAWWN  SPAWN EGG !!!" ) ;
 	}

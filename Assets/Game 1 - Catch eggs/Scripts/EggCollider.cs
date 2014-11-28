@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class EggCollider : MonoBehaviour {
+//[RequireComponent(typeof(AudioSource))]
 
+public class EggCollider : MonoBehaviour {
+	public AudioClip eggScoreSound;
     PlayerScript myPlayerScript;
 
     //Automatically run when a scene starts
@@ -23,5 +25,6 @@ public class EggCollider : MonoBehaviour {
 	//	RehabMenu.theScore++;
     //    myPlayerScript.theScore++;
 		RehabMenu.Score ();
+		GameObject.Find ("SoundFX").audio.PlayOneShot(eggScoreSound, 1.0f);
     }
 }
