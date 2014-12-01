@@ -176,6 +176,7 @@ public class GameSelect : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GUI.enabled = true;
+		RehabMenu.currentGame = 0 ;
 		chooseGameText.text = "Hover Cursor Over A Game For " + (int)(maxHoverTimeMS/1000) + " Seconds To Select";
 		hoverTimeStart = DateTime.Now.AddMinutes(-10); //0;
 	//	Rect a = new Rect(

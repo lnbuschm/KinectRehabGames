@@ -10,7 +10,7 @@ public class RehabGestures : MonoBehaviour {
 	public float velocityAvgDampfactor = 25.0f;
 	public float positionAvgDampfactor = 15.0f;
 	public static float xHandOffset = 140.0f;
-	public static float xElbowOffset = 250.0f;
+	public static float xElbowOffset = 400.0f;  //250 too small
 	public static float pointerXpos = 0.0f;
 	public static float pointerYpos = 0.0f;
 
@@ -180,29 +180,31 @@ public class RehabGestures : MonoBehaviour {
 				// Compare left and right hands with torso joint for relative position
 				float[][] relPosArr = TrackAvgRelPosition(user.Skeleton);
 				if (relPosArr[(int)ZigJointId.LeftHand][1] > relPosArr[(int)ZigJointId.RightHand][1] && rightHandActive==false) {
-					Debug.Log ("RIGHT HAND DOMINANT ACTIVATED!");
+					Debug.Log ("Right Side Active!");
 					rightHandActive = true;
 				}
 				//	SendMessage (
 				else if (relPosArr[(int)ZigJointId.RightHand][1] > relPosArr[(int)ZigJointId.LeftHand][1] && rightHandActive==true){
-					Debug.Log ("LEFT HAND DOMINANT ACTIVATED!");
+					Debug.Log ("Left Side Active!");
 					rightHandActive = false;
 				}
 
+				if (RehabMenu.currentGame == 0) {
+					// Set cursor position for menu control
+					if (rightHandActive) { 
+						RehabGestures.pointerXpos =  TrackAvgPosition( RHjoint)[0];
+						RehabGestures.pointerYpos =  TrackAvgPosition( RHjoint)[1];
 
-				// Set cursor position for menu control
-				if (rightHandActive) { 
-					RehabGestures.pointerXpos =  TrackAvgPosition( RHjoint)[0];
-					RehabGestures.pointerYpos =  TrackAvgPosition( RHjoint)[1];
-
+					}
+					else {
+						RehabGestures.pointerXpos =  TrackAvgPosition( LHjoint)[0];
+						RehabGestures.pointerYpos =  TrackAvgPosition( LHjoint)[1];
+					}
 				}
-				else {
-					RehabGestures.pointerXpos =  TrackAvgPosition( LHjoint)[0];
-					RehabGestures.pointerYpos =  TrackAvgPosition( LHjoint)[1];
-				}
+				/*
 				// check for too much motion in y direction for game 1
 		//		Debug.Log (RehabMenu.currentGame);
-			if(RehabMenu.currentGame == 1){
+			if(RehabMenu.currentGame == 1){   
 				if (rightHandActive) {
 					float velRHy = TrackAvgYVelocity(prevJoints[(int)RHjoint.Id], RHjoint, timeDelta);
 	//				Debug.Log("y RH Vel: " + velRHy);
@@ -223,6 +225,7 @@ public class RehabGestures : MonoBehaviour {
 //					Debug.Log("y LH Vel: " + velLHy);
 				}
 				                               }
+				 */
 			}
 
 			prevTime = DateTime.Now;

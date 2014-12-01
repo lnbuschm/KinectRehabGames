@@ -63,12 +63,28 @@
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
+ <Reference Include="Mono.Data.Sqlite">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/Mono.Data.Sqlite.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.Data.SqliteClient">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/Mono.Data.SqliteClient.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data.DataSetExtensions">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.DataSetExtensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data.Linq">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.Linq.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data.OracleClient">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.OracleClient.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
       <Project>{F0D3A785-25DF-FBF1-6F7E-7C6571415D50}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-CSharp-vs.csproj">
-      <Project>{E961FCB7-D4D3-F115-4612-E5E3491B352D}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

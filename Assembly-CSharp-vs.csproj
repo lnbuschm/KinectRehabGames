@@ -119,6 +119,24 @@
  <Reference Include="ZDK">
  <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/ZigFu/Scripts/_Internal/ZDK.dll</HintPath>
  </Reference>
+ <Reference Include="Mono.Data.Sqlite">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/Mono.Data.Sqlite.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.dll</HintPath>
+ </Reference>
+ <Reference Include="Mono.Data.SqliteClient">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/Mono.Data.SqliteClient.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data.DataSetExtensions">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.DataSetExtensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data.Linq">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.Linq.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data.OracleClient">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.OracleClient.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">

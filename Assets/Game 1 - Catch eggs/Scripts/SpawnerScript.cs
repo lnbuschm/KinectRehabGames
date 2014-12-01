@@ -7,7 +7,7 @@ public class SpawnerScript : MonoBehaviour {
 
     private float nextEggTime = 1.0f;
     public float spawnRate = 1.2f;
-
+	public float rangeMultiplier = 1.0f;  // difficulty setting (to be calibrated per user)
 	public float eggSpawnMin = -2.2f;
 	public float eggSpawnMax = 2.2f;
 	public static bool autoSpawn = true;
@@ -36,7 +36,7 @@ public class SpawnerScript : MonoBehaviour {
     void SpawnEgg()
     {
 		Debug.Log ("Egg Spawned !");
-        float addXPos = Random.Range(eggSpawnMin, eggSpawnMax);
+		float addXPos = Random.Range(eggSpawnMin*rangeMultiplier , eggSpawnMax*rangeMultiplier);
         Vector3 spawnPos = transform.position + new Vector3(addXPos,0,0);  // Game 1
 
 		if (RehabMenu.currentGame == 2) {

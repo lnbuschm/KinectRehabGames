@@ -283,7 +283,7 @@ public class ZigSkeleton : MonoBehaviour
 						if(RehabMenu.currentGame == 4){
 							// Right side rotation:   { 0 , 20 , 285 }
 							// Left side:  
-							joint.Position.x += RehabGestures.xElbowOffset*2.0f/3.0f;
+							joint.Position.x += RehabGestures.xElbowOffset*0.75f/3.0f;
 							initialRotations[(int)ZigJointId.LeftElbow] = Quaternion.Euler(new Vector3(0,180,285));
 						}
 

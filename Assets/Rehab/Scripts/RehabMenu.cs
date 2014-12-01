@@ -109,12 +109,12 @@ public class RehabMenu : MonoBehaviour {
 	//	camera.transform.Rotate (new Vector3 (0, 180, 0));
 
 		if (RehabGestures.rightHandDominant) {
-						summaryLine1GUI.text = "Eggs will fall at " + RehabMenu.rightHandMultiplier + "X rate when you use your right side";
-			summaryLine2GUI.text = "Eggs will fall at 1X rate if you use your left side";  // "Difficulty will be 1X when you use your left side" ;
+						summaryLine1GUI.text = "Eggs will move at " + RehabMenu.rightHandMultiplier + "X rate when you use your right side";
+			summaryLine2GUI.text = "Eggs will move at 1X rate if you use your left side";  // "Difficulty will be 1X when you use your left side" ;
 		} else {
 
-						summaryLine1GUI.text = "Eggs will fall 1X when you use your right side";
-						summaryLine2GUI.text = "Eggs will fall at " + RehabMenu.leftHandMultiplier + "X rate when you use your left side";
+						summaryLine1GUI.text = "Eggs will move at 1X when you use your right side";
+						summaryLine2GUI.text = "Eggs will move at " + RehabMenu.leftHandMultiplier + "X rate when you use your left side";
 				}
 
 		scoreGUI.text = "The next round is about to begin";
@@ -182,19 +182,26 @@ public class RehabMenu : MonoBehaviour {
 
 
 		    if (menuScreenCount == 9) {
+				_roundTimer.Stop() ;
+				_textTimer1.Stop () ;
+				_menuTimer1.Stop ();
 				summaryLine1GUI.text = "Game Completed!";
-				summaryLine2GUI.text = "";
+				summaryLine2GUI.text = "Relax your arms.";
 				scoreGUI.text = "Total points scored: " + RehabMenu.theScore;
+				_menuTimer1.Start ();
 			}
 			else if (menuScreenCount > 9) {
 				Time.timeScale = 1.0f;
+				_roundTimer.Stop() ;
+				_textTimer1.Stop () ;
+				_menuTimer1.Stop ();
 				Application.LoadLevel("GameSelect");
 			}
-			else if (menuScreenCount % 2 == 1) { // == 1) {
+			else if ((menuScreenCount % 2 == 1) && (menuScreenCount < 9)) { // == 1) {
 				showNextRoundScreen1 = true;
 				
 			} 
-			else {
+			else if (menuScreenCount < 9) {
 				camera.transform.Rotate (new Vector3 (0, 180, 0));
 				Time.timeScale=1;
 				SpawnerScript.autoSpawn = true;

@@ -39,8 +39,11 @@ public class EggScript : MonoBehaviour {
 
 		float fallSpeed =   (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty()) + 1.455748877f ) * Time.deltaTime;
 	
-		if (RehabMenu.currentGame == 4) {
-			fallSpeed =  (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty())+1.45f ) * Time.deltaTime;
+		if (RehabMenu.currentGame == 2) { // move stars quicker
+			fallSpeed += 2.0f * Time.deltaTime;
+		}
+		else if (RehabMenu.currentGame == 4) {
+			fallSpeed =  (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty())+2.95f ) * Time.deltaTime;
 		}
 		//float fallSpeed =  2.0f * Time.deltaTime;
 		//	Debug.Log("Fall Speed: " + fallSpeed);
