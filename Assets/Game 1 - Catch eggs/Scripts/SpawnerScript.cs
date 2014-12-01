@@ -37,10 +37,14 @@ public class SpawnerScript : MonoBehaviour {
     {
 		Debug.Log ("Egg Spawned !");
         float addXPos = Random.Range(eggSpawnMin, eggSpawnMax);
-        Vector3 spawnPos = transform.position + new Vector3(addXPos,0,0);
+        Vector3 spawnPos = transform.position + new Vector3(addXPos,0,0);  // Game 1
 
-		if (RehabMenu.currentGame == 4) {
+		if (RehabMenu.currentGame == 2) {
 		//	spawnPos = new Vector3(addXPos,5.0f,-7.6f); 
+			spawnPos  = transform.position + new Vector3(4.0f,addXPos-1.0f,0);
+		}
+		else if (RehabMenu.currentGame == 4) {
+			//	spawnPos = new Vector3(addXPos,5.0f,-7.6f); 
 			spawnPos  = transform.position + new Vector3(addXPos,0,0);
 		}
 	//	if (RehabMenu.currentGame == 1) {

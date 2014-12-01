@@ -263,11 +263,32 @@ public class ZigSkeleton : MonoBehaviour
 					if (RehabGestures.rightHandDominant && joint.Id == ZigJointId.LeftHand) {
 						joint.Position.x += RehabGestures.xHandOffset;
 						UpdatePosition(joint.Id, joint.Position);
+
+						if (RehabMenu.currentGame == 1) {
+							initialRotations[(int)ZigJointId.LeftHand] = Quaternion.Euler(new Vector3(90,0,0));
+				//			Debug.Log ("Modif Rotation LH ");
+						}
+
+
 				//		Debug.Log ("Left elbow offset:");
 					}
 					else if (RehabGestures.rightHandDominant &&  joint.Id == ZigJointId.LeftElbow) {
 						joint.Position.x += RehabGestures.xElbowOffset;
+
+						// Adjust gameobject rotation for left arm
+
+						if(RehabMenu.currentGame == 3){
+							initialRotations[(int)ZigJointId.LeftElbow] = Quaternion.Euler(new Vector3(0,270,0));
+						}
+						if(RehabMenu.currentGame == 4){
+							// Right side rotation:   { 0 , 20 , 285 }
+							// Left side:  
+							joint.Position.x += RehabGestures.xElbowOffset*2.0f/3.0f;
+							initialRotations[(int)ZigJointId.LeftElbow] = Quaternion.Euler(new Vector3(0,180,285));
+						}
+
 						UpdatePosition(joint.Id, joint.Position);
+
 
 						/*
 						var lookPos = target.position - transform.position;
@@ -279,7 +300,7 @@ public class ZigSkeleton : MonoBehaviour
 */						
 						//Quaternion  rotation = Quaternion.LookRotation(
 					//	joint.Rotation.y += 180.0f;
-						initialRotations[(int)ZigJointId.LeftElbow] = Quaternion.Euler(new Vector3(0,270,0));
+
 	//					joint.Rotation.SetLookRotation(new Vector3(0,180,0));
 
 	//					joint.Rotation.Set(joint.Rotation.x,joint.Rotation.y+180.0f,joint.Rotation.z,joint.Rotation.w);

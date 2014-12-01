@@ -161,6 +161,7 @@ public class RehabGestures : MonoBehaviour {
 					rightHandActive = false;
 				}
 */
+
 				if (Time.timeScale == 0) return;  // return if game is not yet active (summary or nextround screen)
 				/*
 				// try comparing hands with position
@@ -193,6 +194,7 @@ public class RehabGestures : MonoBehaviour {
 				if (rightHandActive) { 
 					RehabGestures.pointerXpos =  TrackAvgPosition( RHjoint)[0];
 					RehabGestures.pointerYpos =  TrackAvgPosition( RHjoint)[1];
+
 				}
 				else {
 					RehabGestures.pointerXpos =  TrackAvgPosition( LHjoint)[0];

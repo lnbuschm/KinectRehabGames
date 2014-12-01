@@ -49,7 +49,13 @@ public class EggScript : MonoBehaviour {
 	//	Debug.Log("Difficulty: " + RehabMenu.GetDifficulty());
 //		Debug.Log ("fall sp: " + Screen.height / (eggPrefab.renderer.bounds.size.y/0.4136584));
        // float fallSpeed = 2 * Time.deltaTime;
-        transform.position -= new Vector3(0, fallSpeed, 0);
+
+		if (RehabMenu.currentGame == 2) {
+			transform.position -= new Vector3(fallSpeed, 0, 0);
+		}
+		else {
+        	transform.position -= new Vector3(0, fallSpeed, 0);
+		}
 
 		if (RehabMenu.currentGame == 1) {
 	        if (transform.position.y < -1 || transform.position.y >= 20)
@@ -62,6 +68,18 @@ public class EggScript : MonoBehaviour {
 
 				//Debug.Log ("YOlo destroy");
 	        }
+		}
+		else if (RehabMenu.currentGame == 2) {
+			if (transform.position.x < -5 || transform.position.x >= 10)
+			{
+				GameObject.Find ("SoundFX").audio.PlayOneShot(eggMissSound, 1.0f);
+				//	audio.PlayOneShot(eggMissSound, 1.0f);
+				//Destroy this gameobject (and all attached components)
+				Destroy(gameObject);
+				GameObject.Find ("SpawnObject").SendMessage("SpawnEgg");
+				
+				//Debug.Log ("YOlo destroy");
+			}
 		}
 		else if (RehabMenu.currentGame == 4) {
 			if (transform.position.y < -1 || transform.position.y >= 20)

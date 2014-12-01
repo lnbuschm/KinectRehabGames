@@ -110,8 +110,8 @@ public class RehabMenu : MonoBehaviour {
 
 		if (RehabGestures.rightHandDominant) {
 						summaryLine1GUI.text = "Eggs will fall at " + RehabMenu.rightHandMultiplier + "X rate when you use your right side";
-						summaryLine2GUI.text = "Eggs will fall at 1X rate if you use your left side";
-				} else {
+			summaryLine2GUI.text = "Eggs will fall at 1X rate if you use your left side";  // "Difficulty will be 1X when you use your left side" ;
+		} else {
 
 						summaryLine1GUI.text = "Eggs will fall 1X when you use your right side";
 						summaryLine2GUI.text = "Eggs will fall at " + RehabMenu.leftHandMultiplier + "X rate when you use your left side";
@@ -138,8 +138,8 @@ public class RehabMenu : MonoBehaviour {
 						strongScore = lhScore;
 						weakScore = rhScore;
 				}
-		summaryLine1GUI.text =  "You caught " + strongScore + " eggs with your strong side!";
-		summaryLine2GUI.text =  "You caught " + weakScore + " eggs with your weak side!";
+		summaryLine1GUI.text =  "You scored " + strongScore + " points with your strong side!";
+		summaryLine2GUI.text =  "You scored " + weakScore + " points with your weak side!";
 		scoreGUI.text = "Total Points Scored: " + theScore;
 	//	showRoundSummaryScreen1 = false;
 		_menuTimer1.Start ();
@@ -147,7 +147,8 @@ public class RehabMenu : MonoBehaviour {
 
 	public static int GetDifficulty() { 
 	//	Debug.Log ("Round num: " + roundNum);
-		if (RehabGestures.rightHandActive == RehabGestures.rightHandDominant) 
+		if (difficultySequence >= difficulty.Length || roundNum >= difficulty[difficultySequence].Length) return 0;
+		else if (RehabGestures.rightHandActive == RehabGestures.rightHandDominant) 
 						return difficulty [difficultySequence] [roundNum];
 				else
 						return 1;  // always return difficulty 1 if using weak side
@@ -174,19 +175,20 @@ public class RehabMenu : MonoBehaviour {
 		//GUILayout.Label(
 		//GUILayout.Label("Score: " + theScore);
 
-		if (RehabMenu.roundEnd) {
-						showRoundSummaryScreen ();
-						RehabMenu.roundEnd = false;
-				}
+
 		if (screenToggle) {
 			menuScreenCount++;
 			screenToggle=false;
 
 
-		    if (menuScreenCount > 8) {
-				summaryLine1GUI.text = "GAME OVER!!!";
+		    if (menuScreenCount == 9) {
+				summaryLine1GUI.text = "Game Completed!";
 				summaryLine2GUI.text = "";
 				scoreGUI.text = "Total points scored: " + RehabMenu.theScore;
+			}
+			else if (menuScreenCount > 9) {
+				Time.timeScale = 1.0f;
+				Application.LoadLevel("GameSelect");
 			}
 			else if (menuScreenCount % 2 == 1) { // == 1) {
 				showNextRoundScreen1 = true;
@@ -208,6 +210,13 @@ public class RehabMenu : MonoBehaviour {
 
 
 		}
+
+		if (RehabMenu.roundEnd) {
+			showRoundSummaryScreen ();
+			RehabMenu.roundEnd = false;
+		}
+
+
 		if (showNextRoundScreen1) 
 						showNextRoundScreen ();
 		else if (showRoundSummaryScreen1)

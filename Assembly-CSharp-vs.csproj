@@ -76,6 +76,7 @@
      <Compile Include="Assets\Rehab\Scripts\RehabGame2.cs" />
      <Compile Include="Assets\Rehab\Scripts\RehabGestures.cs" />
      <Compile Include="Assets\Rehab\Scripts\RehabMenu.cs" />
+     <Compile Include="Assets\Rehab\Scripts\Screenshot.cs" />
      <Compile Include="Assets\Rehab\Scripts\Singleton.cs" />
      <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\ExitOnEscape.cs" />
      <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\HSBColor.cs" />
@@ -108,7 +109,6 @@
      <None Include="Assets\Standard Assets\Blob-Shadow\ShadowProjection.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Standard Assets\Water\Sources\FX-Water Simple.shader" />
-     <None Include="Assets\Rehab\Materials\star.obj.txt" />
      <None Include="Assets\Standard Assets\Gem Rendering\diamond shader.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
