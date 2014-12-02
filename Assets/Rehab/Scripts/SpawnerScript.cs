@@ -10,15 +10,21 @@ public class SpawnerScript : MonoBehaviour {
 	public float rangeMultiplier = 1.0f;  // difficulty setting (to be calibrated per user)
 	public float eggSpawnMin = -2.2f;
 	public float eggSpawnMax = 2.2f;
+	public float maxEggLifespan = 4.0f;  // 4 seconds until another egg spawns - TODO: Destroy old eggs
 	public static bool autoSpawn = true;
+	private float lastEggSpawnTime;
 	void Update () {
 	//	spawnRate = RehabMenu.GetDifficulty ();
    //     if (nextEggTime < Time.time) {
 	//		SpawnEgg(); 
 	//		nextEggTime =  Time.time + spawnRate;
 	//	}
-		if (Time.timeScale != 0  && autoSpawn == true)
+
+		lastEggSpawnTime += Time.deltaTime;
+
+		if (Time.timeScale != 0  && autoSpawn == true || lastEggSpawnTime > maxEggLifespan)
         {
+
             SpawnEgg();   // only spawn a new egg when one is destroyed
 		//	nextEggTime =  Time.time + spawnRate;
 			SpawnerScript.autoSpawn = false;  // spawn 1 egg to start
@@ -50,6 +56,7 @@ public class SpawnerScript : MonoBehaviour {
 		}
 	//	if (RehabMenu.currentGame == 1) {
         Instantiate(eggPrefab, spawnPos, Quaternion.identity);
+		lastEggSpawnTime = 0.0f;
 	//	}
 	//	else if (RehabMenu.currentGame  == 4) {
 	//		Instantiate(eggPrefab, spawnPos, Quaternion.identity);
