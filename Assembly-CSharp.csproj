@@ -47,10 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Game 1 - Catch eggs\Scripts\BucketMover.cs" />
-     <Compile Include="Assets\Game 1 - Catch eggs\Scripts\EggCollider.cs" />
-     <Compile Include="Assets\Game 1 - Catch eggs\Scripts\EggScript.cs" />
      <Compile Include="Assets\Game 1 - Catch eggs\Scripts\PlayerScript.cs" />
-     <Compile Include="Assets\Game 1 - Catch eggs\Scripts\SpawnerScript.cs" />
      <Compile Include="Assets\Game 2 - Jump game\Scripts\EdgeTrigger.cs" />
      <Compile Include="Assets\Game 2 - Jump game\Scripts\GameControl.cs" />
      <Compile Include="Assets\Game 2 - Jump game\Scripts\GameGUI.cs" />
@@ -70,14 +67,19 @@
      <Compile Include="Assets\Rehab\Scripts\BGMusic.cs" />
      <Compile Include="Assets\Rehab\Scripts\BallThrow.cs" />
      <Compile Include="Assets\Rehab\Scripts\BatCollision.cs" />
+     <Compile Include="Assets\Rehab\Scripts\EggCollider.cs" />
      <Compile Include="Assets\Rehab\Scripts\EggPitch.cs" />
      <Compile Include="Assets\Rehab\Scripts\EggPitchSpawn.cs" />
+     <Compile Include="Assets\Rehab\Scripts\EggScript.cs" />
      <Compile Include="Assets\Rehab\Scripts\GameSelect.cs" />
+     <Compile Include="Assets\Rehab\Scripts\RecordToDatabase.cs" />
      <Compile Include="Assets\Rehab\Scripts\RehabGame2.cs" />
      <Compile Include="Assets\Rehab\Scripts\RehabGestures.cs" />
      <Compile Include="Assets\Rehab\Scripts\RehabMenu.cs" />
      <Compile Include="Assets\Rehab\Scripts\Screenshot.cs" />
      <Compile Include="Assets\Rehab\Scripts\Singleton.cs" />
+     <Compile Include="Assets\Rehab\Scripts\SpawnerScript.cs" />
+     <Compile Include="Assets\SQLITECLASS.cs" />
      <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\ExitOnEscape.cs" />
      <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\HSBColor.cs" />
      <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\MenuController.cs" />
@@ -110,29 +112,17 @@
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Standard Assets\Water\Sources\FX-Water Simple.shader" />
      <None Include="Assets\Standard Assets\Gem Rendering\diamond shader.shader" />
- <Reference Include="OpenNI.Net">
- <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/ZigFu/Scripts/_Internal/OpenNI.Net.dll</HintPath>
- </Reference>
- <Reference Include="ZDK">
- <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/ZigFu/Scripts/_Internal/ZDK.dll</HintPath>
- </Reference>
  <Reference Include="Mono.Data.Sqlite">
  <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/Mono.Data.Sqlite.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
  <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.dll</HintPath>
  </Reference>
- <Reference Include="Mono.Data.SqliteClient">
- <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/Mono.Data.SqliteClient.dll</HintPath>
+ <Reference Include="OpenNI.Net">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/ZigFu/Scripts/_Internal/OpenNI.Net.dll</HintPath>
  </Reference>
- <Reference Include="System.Data.DataSetExtensions">
- <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.DataSetExtensions.dll</HintPath>
- </Reference>
- <Reference Include="System.Data.Linq">
- <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.Linq.dll</HintPath>
- </Reference>
- <Reference Include="System.Data.OracleClient">
- <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/System.Data.OracleClient.dll</HintPath>
+ <Reference Include="ZDK">
+ <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/ZigFu/Scripts/_Internal/ZDK.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

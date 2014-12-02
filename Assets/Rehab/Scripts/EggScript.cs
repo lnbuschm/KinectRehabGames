@@ -61,9 +61,10 @@ public class EggScript : MonoBehaviour {
 		}
 
 		if (RehabMenu.currentGame == 1) {
-	        if (transform.position.y < -1 || transform.position.y >= 20)
+	        if (transform.position.y < -1 || transform.position.y >= 20
+			    || transform.position.x < -6.0f ||transform.position.x > 6.0f)
 	        {
-				GameObject.Find ("SoundFX").audio.PlayOneShot(eggMissSound, 1.0f);
+				GameObject.Find ("SoundFX").audio.PlayOneShot(eggMissSound, 0.8f);
 			//	audio.PlayOneShot(eggMissSound, 1.0f);
 	            //Destroy this gameobject (and all attached components)
 	            Destroy(gameObject);
