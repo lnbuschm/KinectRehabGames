@@ -19,6 +19,7 @@ public class RehabMenu : MonoBehaviour {
 	public static int leftHandMultiplier = 1;
 	public static bool warningRH = false;
 	public static bool warningLH = false;
+	public static bool tutorialEnabled = false;
 	public int menuTime = 5000;  // in ms
 	public Timer _roundTimer; // From System.Timers
 	public int gameNumber;
@@ -107,7 +108,7 @@ public class RehabMenu : MonoBehaviour {
 	//	Debug.Log ("SHOW NEXT ROUND SCREEN!!");
 		//	summaryScreenToggle = true;
 	//	camera.transform.Rotate (new Vector3 (0, 180, 0));
-
+		if (menuScreenCount > 0) RehabMenu.tutorialEnabled = false;
 		if (RehabGestures.rightHandDominant) {
 						summaryLine1GUI.text = "Eggs will move at " + RehabMenu.rightHandMultiplier + "X rate when you use your right side";
 			summaryLine2GUI.text = "Eggs will move at 1X rate if you use your left side";  // "Difficulty will be 1X when you use your left side" ;
@@ -138,9 +139,12 @@ public class RehabMenu : MonoBehaviour {
 						strongScore = lhScore;
 						weakScore = rhScore;
 				}
+		if (menuScreenCount == 0) RehabMenu.tutorialEnabled = true;
+		else {
 		summaryLine1GUI.text =  "You scored " + strongScore + " points with your strong side!";
 		summaryLine2GUI.text =  "You scored " + weakScore + " points with your weak side!";
 		scoreGUI.text = "Total Points Scored: " + theScore;
+		}
 	//	showRoundSummaryScreen1 = false;
 		_menuTimer1.Start ();
 	}
@@ -199,7 +203,7 @@ public class RehabMenu : MonoBehaviour {
 			}
 			else if ((menuScreenCount % 2 == 1) && (menuScreenCount < 9)) { // == 1) {
 				showNextRoundScreen1 = true;
-				
+				_roundTimer.Stop ();
 			} 
 			else if (menuScreenCount < 9) {
 				camera.transform.Rotate (new Vector3 (0, 180, 0));
@@ -211,7 +215,7 @@ public class RehabMenu : MonoBehaviour {
 				summaryLine2GUI.text = "";
 				scoreGUI.text = "";
 			//	menuScreenCount = 0;
-				_roundTimer.Stop ();
+
 				_roundTimer.Start ();
 			}
 
@@ -275,7 +279,7 @@ public class RehabMenu : MonoBehaviour {
 		warningGUI.text = "";
 		_roundTimer = new Timer(roundTimeMS); // Set up the timer for 30 seconds
 		_roundTimer.Elapsed += new ElapsedEventHandler(_roundTimer_Elapsed);
-		_roundTimer.Enabled = true; // Enable it
+		_roundTimer.Enabled = false; // Enable it when the round starts
 		
 		_textTimer1 = new Timer(3000); // Set up the timer for 3 seconds
 		_textTimer1.Elapsed += new ElapsedEventHandler(_textTimer1_Elapsed);
@@ -289,19 +293,26 @@ public class RehabMenu : MonoBehaviour {
 		difficultySequence = RehabMenu.rand.Next(difficulty.Length); // returns non-negative random # less than the argument
 		Debug.Log ("Difficulty sequence: " + difficultySequence);
 
-		roundNum = 0; // begin at -1
+		menuScreenCount = 0; // begin at -1   // 0
+		RehabMenu.tutorialEnabled = true;
+		showRoundSummaryScreen ();
 
 		RehabMenu.currentGame = gameNumber;
 
-		showNextRoundScreen ();
-		Time.timeScale = 0;
-		camera.transform.Rotate (new Vector3 (0, 180, 0));
-		menuScreenCount = 1;  // initialize to next round screen
-	//	showRoundSummaryScreen ();
+		roundNum = 0; // begin at -1   // 0
+	//	showNextRoundScreen ();
+//		Time.timeScale = 0;
+//		camera.transform.Rotate (new Vector3 (0, 180, 0));
+//		menuScreenCount = 1;  // initialize to next round screen
+
 
 	//	scoreGUI.pixelOffset = new Vector2(-Screen.width/2+guiPadding , Screen.height/2-guiPadding);
 		rightHandGUI.pixelOffset = new Vector2(Screen.width/2-guiPadding , Screen.height/2-guiPadding);
 		leftHandGUI.pixelOffset = new Vector2(Screen.width/2-guiPadding , Screen.height/2-rightHandGUI.fontSize-2*guiPadding);
+	
+		summaryLine1GUI.pixelOffset = new Vector2(0, Screen.height/2-guiPadding);
+		summaryLine2GUI.pixelOffset = new Vector2(0, Screen.height/2-2*guiPadding-summaryLine1GUI.GetScreenRect().height);
+	
 	}
 
 //	RehabGestures myRehabGestures;

@@ -10,6 +10,7 @@ public class RecordToDatabase : MonoBehaviour {
 	string tableName;  // new table is created each time a game is started (using dateTime)
 	public int skipFrames = 1;
 	private int skipCounter;
+	private bool enabled = false;
 
 
 	ZigJointId[] jointList = new ZigJointId[] { 
@@ -37,6 +38,7 @@ public class RecordToDatabase : MonoBehaviour {
 		skipCounter = skipFrames;
 		Debug.Log("CreateDatabase being called");
 		CreateDatabase();
+		enabled = true;
 		// Step 2, lets put some data in that then read it back to the log
 	//	Debug.Log("InsertRecord being called");
 //		InsertRecord(DateTime.Now, 1.2345f, 2.3456f, 3.45678f);
@@ -154,6 +156,7 @@ public class RecordToDatabase : MonoBehaviour {
 
 	void Zig_UpdateUser(ZigTrackedUser user)
 	{
+		if (!enabled) return;
 		skipCounter--;
 		if (skipCounter < 0) {
 			skipCounter = skipFrames;
