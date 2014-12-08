@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using Mono.Data.Sqlite;
 using System.Data;
+using System.Collections.Generic;
 
 public class RecordToDatabase : MonoBehaviour {
 	public string databaseFilename = "gamedata.db";
@@ -11,9 +12,10 @@ public class RecordToDatabase : MonoBehaviour {
 	public int skipFrames = 1;
 	private int skipCounter;
 	private bool enabled = false;
+	public bool delayWrite = true;
 
-
-	ZigJointId[] jointList = new ZigJointId[] { 
+	private List<JointInfo> list ; // = new List<JointInfo>()
+	public static ZigJointId[] jointList = new ZigJointId[] { 
 		ZigJointId.Head,  // 1
         ZigJointId.Neck,   // 2
 		//	ZigJointId.Torso,  // 3       // kinect v2 only
@@ -47,6 +49,14 @@ public class RecordToDatabase : MonoBehaviour {
 	//	dbTest();
 
 	//	Debug.Log("Done with SQLITE Test");
+
+
+		if (delayWrite) {
+			//	LinkedList<string> sentence = new LinkedList<string>(words);
+			list = new List<JointInfo>();
+		}
+
+
 	}
 
 
@@ -60,9 +70,13 @@ public class RecordToDatabase : MonoBehaviour {
 		//		string sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (t DATETIME, x FLOAT, y FLOAT, z FLOAT); "; 
 
 		string sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (t DATETIME NOT NULL PRIMARY KEY";
-		foreach (ZigJointId zig in jointList) {
+		foreach (ZigJointId zig in RecordToDatabase.jointList) {
 			sql += ", x" + (int)zig + " FLOAT, y" + (int)zig + " FLOAT, z" + (int)zig + " FLOAT";
 		}
+		sql += ", gameNum INTEGER, roundNum INTEGER, difficulty INTEGER, totalEggs INTEGER" +
+			", lhTime FLOAT, lhCaughtEggs INTEGER, rhTime FLOAT, rhCaughtEggs INTEGER" +
+			", rhDominant INTEGER, xScale FLOAT, yScale FLOAT, timeScale FLOAT"; 
+
 		sql += "); "; 
 		Debug.Log (sql);
 		try
@@ -133,7 +147,7 @@ public class RecordToDatabase : MonoBehaviour {
 		string sql = "INSERT INTO " + tableName + " (t";
 		float ttt = 1.0f;
 		string insertVals =  ") " + "VALUES ('" + sampleStart.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
-		foreach (ZigJointId joint in  jointList)
+		foreach (ZigJointId joint in  RecordToDatabase.jointList)
 		{
 			// Filter out joints that aren't used in Seated Mode
 			if ((int)joint < 17 && (int)joint != 4) {
@@ -153,6 +167,69 @@ public class RecordToDatabase : MonoBehaviour {
 		InsertRecord(sql);
 	}
 
+	void WriteToDB() {
+		// insert all entries in 'list' into the database
+		foreach(JointInfo j in list) {
+			string sql = "INSERT INTO " + tableName + " (t";
+			
+			string insertVals =  ") " + "VALUES ('" + j.time.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
+			//foreach (ZigInputJoint joint in  user.Skeleton)
+			foreach (ZigJointId jID in jointList) 
+			{
+				sql += ", x" + (int)jID + ", y" + (int)jID + ", z" + (int)jID;
+				insertVals += ", " + j.jointInfo[(int)jID][0] + ", " + j.jointInfo[(int)jID][1] + ", " + j.jointInfo[(int)jID][2];
+
+			}
+			insertVals += "); ";
+			
+			sql += insertVals;
+			
+			//		Debug.Log (sql);
+			
+			InsertRecord(sql);
+		}
+		list.Clear();
+		// insert game stats into db
+		WriteToScoreDB();
+	}
+
+	void WriteToScoreDB() {
+
+		// gameNum INTEGER, roundNum INTEGER, totalEggs INTEGER" +
+		//  ", caughtEggs INTEGER, xScale FLOAT, yScale FLOAT, timeScale FLOAT"; 
+
+
+	//	sql += ", gameNum INTEGER, roundNum INTEGER, totalEggs INTEGER" +
+	//		", lhTime FLOAT, lhCaughtEggs INTEGER, rhTime FLOAT, rhCaughtEggs INTEGER" +
+	//			", rhDominant INTEGER, xScale FLOAT, yScale FLOAT, timeScale FLOAT"; 
+
+
+		string sql = "INSERT INTO " + tableName + 
+			" (t, gameNum, roundNum, difficulty, totalEggs, lhTime, lhCaughtEggs, rhTime" +
+			", rhCaughtEggs, rhDominant, xScale, yScale, timeScale) " + 
+				"VALUES ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
+	//	foreach (ZigJointId jID in jointList) 
+	//	{
+	//		sql += ", x" + (int)jID + ", y" + (int)jID + ", z" + (int)jID;
+	//		insertVals += ", " + j.jointInfo[(int)jID][0] + ", " + j.jointInfo[(int)jID][1] + ", " + j.jointInfo[(int)jID][2];
+	//	}
+	//	insertVals += "); ";
+	//	sql += insertVals;
+
+		sql += ", " + RehabMenu.currentGame + ", " + RehabMenu.roundNum + ", " + RehabMenu.roundDifficulty + ", " + RehabMenu.totalEggs + ", " + 
+			RehabMenu.lhTime + ", " + RehabMenu.lhCaughtEggs + ", " + RehabMenu.rhTime + ", " + RehabMenu.rhCaughtEggs + ", " + 
+				Convert.ToInt32(RehabGestures.rightHandDominant) + ", " + ZigSkeleton.xScale + ", " + ZigSkeleton.yScale + ", " + RehabMenu.timeScale + "); ";
+
+		//insertVals += "); ";
+	//	Debug.Log ("Write SCORE !!");
+				Debug.Log (sql);
+		
+		InsertRecord(sql);
+
+	}
+
+
+	
 
 	void Zig_UpdateUser(ZigTrackedUser user)
 	{
@@ -163,30 +240,68 @@ public class RecordToDatabase : MonoBehaviour {
 		}
 		else return;
 
-		if (user.SkeletonTracked)
-		{
-			DateTime sampleStart = DateTime.Now;
-			string sql = "INSERT INTO " + tableName + " (t";
 
-			string insertVals =  ") " + "VALUES ('" + sampleStart.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
-			foreach (ZigInputJoint joint in  user.Skeleton)
+
+		if (delayWrite) {
+		//	LinkedList<string> sentence = new LinkedList<string>(words);
+		//	float[][] jointPos = new float[20][];
+			float[][] jointPos = new float[Enum.GetNames(typeof(ZigJointId)).Length][];
+
+		//	float[] jointPosY = new float[Enum.GetNames(typeof(ZigJointId)).Length];
+		//	float[] jointPosZ = new float[Enum.GetNames(typeof(ZigJointId)).Length];
+
+			foreach (ZigJointId jID in jointList) //  user.Skeleton)
 			{
+			//	Transform joint = transform[(int)jID];
+				ZigInputJoint joint = user.Skeleton[(int)jID];
 				// Filter out joints that aren't used in Seated Mode
 				if (joint.GoodPosition && ((int)joint.Id < 17 && (int)joint.Id != 4)) {
-
-					sql += ", x" + (int)joint.Id + ", y" + (int)joint.Id + ", z" + (int)joint.Id;
-					insertVals += ", " + joint.Position.x + ", " + joint.Position.y + ", " + joint.Position.z ;
-
+					
+			//		sql += ", x" + (int)joint.Id + ", y" + (int)joint.Id + ", z" + (int)joint.Id;
+			//		insertVals += ", " + joint.Position.x + ", " + joint.Position.y + ", " + joint.Position.z ;
+					jointPos[(int)jID] =  new float[3] { joint.Position.x, joint.Position.y, joint.Position.z };
+			//		jointPos[(int)jID][0] = joint.Position.x;
+			//		jointPos[(int)jID][1] = joint.Position.y;
+			//		jointPos[(int)jID][2] = joint.Position.z;
 
 				}
+
 			}
-			insertVals += "); ";
-			
-			sql += insertVals;
-			
-	//		Debug.Log (sql);
-			
-			InsertRecord(sql);
+			JointInfo jdb = new JointInfo(DateTime.Now, jointPos);
+
+			list.Add(jdb);
+
+
+		}
+
+		else if (delayWrite == false) {
+
+		
+			if (user.SkeletonTracked)
+			{
+				DateTime sampleStart = DateTime.Now;
+				string sql = "INSERT INTO " + tableName + " (t";
+
+				string insertVals =  ") " + "VALUES ('" + sampleStart.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
+				foreach (ZigInputJoint joint in  user.Skeleton)
+				{
+					// Filter out joints that aren't used in Seated Mode
+					if (joint.GoodPosition && ((int)joint.Id < 17 && (int)joint.Id != 4)) {
+
+						sql += ", x" + (int)joint.Id + ", y" + (int)joint.Id + ", z" + (int)joint.Id;
+						insertVals += ", " + joint.Position.x + ", " + joint.Position.y + ", " + joint.Position.z ;
+
+
+					}
+				}
+				insertVals += "); ";
+				
+				sql += insertVals;
+				
+		//		Debug.Log (sql);
+				
+				InsertRecord(sql);
+			}
 		}
 	}
 	

@@ -41,6 +41,9 @@ public class ZigSkeleton : MonoBehaviour
     public float RotationDamping = 30.0f;
     public float Damping = 30.0f;
     public Vector3 Scale = new Vector3(0.001f, 0.001f, 0.001f);
+	public static float xScale;
+	public static float yScale;
+	public static float zScale;
 
     public Vector3 PositionBias = Vector3.zero;
 
@@ -157,6 +160,9 @@ public class ZigSkeleton : MonoBehaviour
         {
             RotateToCalibrationPose();
         }
+		ZigSkeleton.xScale = Scale.x;
+		ZigSkeleton.yScale = Scale.y;
+		ZigSkeleton.zScale = Scale.z;
     }
 
     void UpdateRoot(Vector3 skelRoot)

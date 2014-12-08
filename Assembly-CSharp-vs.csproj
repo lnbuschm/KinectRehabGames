@@ -72,6 +72,7 @@
      <Compile Include="Assets\Rehab\Scripts\EggPitchSpawn.cs" />
      <Compile Include="Assets\Rehab\Scripts\EggScript.cs" />
      <Compile Include="Assets\Rehab\Scripts\GameSelect.cs" />
+     <Compile Include="Assets\Rehab\Scripts\JointInfo.cs" />
      <Compile Include="Assets\Rehab\Scripts\RecordToDatabase.cs" />
      <Compile Include="Assets\Rehab\Scripts\RehabGestures.cs" />
      <Compile Include="Assets\Rehab\Scripts\RehabMenu.cs" />

@@ -43,7 +43,7 @@ public class SpawnerScript : MonoBehaviour {
     {
 		Debug.Log ("Egg Spawned !");
 		float addXPos = Random.Range(eggSpawnMin*rangeMultiplier , eggSpawnMax*rangeMultiplier);
-        Vector3 spawnPos = transform.position + new Vector3(addXPos,0,0);  // Game 1
+        Vector3 spawnPos = transform.position + new Vector3(addXPos,1.0f,0);  // Game 1
 	//	Vector3 spawnPos = transform.position + new Vector3(-5.0f,0,0);  
 
 		if (RehabMenu.currentGame == 2) {
@@ -57,6 +57,9 @@ public class SpawnerScript : MonoBehaviour {
 	//	if (RehabMenu.currentGame == 1) {
         Instantiate(eggPrefab, spawnPos, Quaternion.identity);
 		lastEggSpawnTime = 0.0f;
+
+		RehabMenu.totalEggs++;
+
 	//	}
 	//	else if (RehabMenu.currentGame  == 4) {
 	//		Instantiate(eggPrefab, spawnPos, Quaternion.identity);

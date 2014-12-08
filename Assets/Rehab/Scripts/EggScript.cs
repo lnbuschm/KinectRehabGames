@@ -13,6 +13,7 @@ public class EggScript : MonoBehaviour {
 
 	public float maxFallSpeed = 3.0f;
 	public Transform eggPrefab;
+	public float additionalDifficulty = 1.0f;
 
 
 	// use logistic regression for fallspeed
@@ -26,7 +27,7 @@ public class EggScript : MonoBehaviour {
 //		System.Random rand = new System.Random ();
 //		float randFallSpeed = (float)rand.NextDouble () * (maxFallSpeed - minFallSpeed) + minFallSpeed;
 //		float fallSpeed = randFallSpeed * Time.deltaTime;
-		if (Time.timeScale == 0) {
+		if (Time.timeScale == 0 || RehabMenu.roundNum > 3) {
 		//	Debug.Log ("EGgscript Destroy!");
 			Destroy (gameObject);
 			return;
@@ -37,7 +38,7 @@ public class EggScript : MonoBehaviour {
 		// Fall speed for egg game catch 1 
 		//      float fallSpeed =   (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty()) + 1.455748877f ) * Time.deltaTime;
 
-		float fallSpeed =   (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty()) + 1.455748877f ) * Time.deltaTime;
+		float fallSpeed =   (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty()) + 1.455748877f + additionalDifficulty ) * Time.deltaTime;
 	
 		if (RehabMenu.currentGame == 2) { // move stars quicker
 			fallSpeed += 2.0f * Time.deltaTime;
@@ -92,6 +93,7 @@ public class EggScript : MonoBehaviour {
 				//	audio.PlayOneShot(eggMissSound, 1.0f);
 				//Destroy this gameobject (and all attached components)
 				Destroy(gameObject);
+
 				GameObject.Find ("SpawnObject").SendMessage("SpawnEgg");
 				
 				//Debug.Log ("YOlo destroy");

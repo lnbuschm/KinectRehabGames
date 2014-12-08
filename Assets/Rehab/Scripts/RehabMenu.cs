@@ -30,6 +30,7 @@ public class RehabMenu : MonoBehaviour {
 	Timer _menuTimer1; 
 
 	private static int difficultySequence = 1;
+	public static int roundDifficulty = 1;
 	public int guiPadding = 10;
 
 	static int pointValue = 1;
@@ -78,10 +79,12 @@ public class RehabMenu : MonoBehaviour {
 		if (RehabGestures.rightHandDominant) {
 
 			RehabMenu.rightHandMultiplier = RehabMenu.difficulty [RehabMenu.difficultySequence] [RehabMenu.roundNum];
+			RehabMenu.roundDifficulty = RehabMenu.rightHandMultiplier;
 			RehabMenu.leftHandMultiplier = 1;
 		} else {
-			RehabMenu.rightHandMultiplier = 1;;
+			RehabMenu.rightHandMultiplier = 1;
 			RehabMenu.leftHandMultiplier = difficulty [RehabMenu.difficultySequence] [RehabMenu.roundNum];
+			RehabMenu.roundDifficulty = RehabMenu.leftHandMultiplier ;
 		}
 		Debug.Log ("Round " + RehabMenu.roundNum + " ended");
 		Debug.Log ("LH Multiplier: " + leftHandMultiplier);
@@ -129,6 +132,7 @@ public class RehabMenu : MonoBehaviour {
 
 		Time.timeScale = 0;
 		camera.transform.Rotate (new Vector3 (0, 180, 0));
+
 		int strongScore = 0;
 
 		int weakScore = 0;
@@ -158,15 +162,17 @@ public class RehabMenu : MonoBehaviour {
 						return 1;  // always return difficulty 1 if using weak side
 
 	}
-	private static int roundNum = 0;
+	public static int roundNum = 0;
 		                   
 	public static void Score() {
 		if (RehabGestures.rightHandActive) {
 			rhScore++;
 			theScore += pointValue; // * rightHandMultiplier;
+			RehabMenu.rhCaughtEggs++;
 		} else {
 			lhScore++;
 			theScore +=  pointValue; // * leftHandMultiplier;
+			RehabMenu.lhCaughtEggs++;
 		}
 	}
 
@@ -189,9 +195,11 @@ public class RehabMenu : MonoBehaviour {
 				_roundTimer.Stop() ;
 				_textTimer1.Stop () ;
 				_menuTimer1.Stop ();
+				GameObject.Find ("Database").SendMessage("WriteToDB");
 				summaryLine1GUI.text = "Game Completed!";
 				summaryLine2GUI.text = "Relax your arms.";
 				scoreGUI.text = "Total points scored: " + RehabMenu.theScore;
+
 				_menuTimer1.Start ();
 			}
 			else if (menuScreenCount > 9) {
@@ -202,12 +210,17 @@ public class RehabMenu : MonoBehaviour {
 				Application.LoadLevel("GameSelect");
 			}
 			else if ((menuScreenCount % 2 == 1) && (menuScreenCount < 9)) { // == 1) {
+
+				GameObject.Find ("Database").SendMessage("WriteToDB");
 				showNextRoundScreen1 = true;
 				_roundTimer.Stop ();
+				InitDBLog();
 			} 
 			else if (menuScreenCount < 9) {
 				camera.transform.Rotate (new Vector3 (0, 180, 0));
 				Time.timeScale=1;
+			//	RehabMenu.lhTime = 0;
+			//	RehabMenu.rhTime = 0;
 				SpawnerScript.autoSpawn = true;
 				EggPitchSpawn.autoSpawn = true;
 				Debug.Log ("RehabMenu Autospawn"); 
@@ -271,6 +284,27 @@ public class RehabMenu : MonoBehaviour {
 	}   
 
 	public int roundTimeMS = 10000; // 30000; // 30 seconds
+
+	// variables for DB logging
+	public static int totalEggs;
+	public static float rhTime;
+	public static float lhTime;
+	public static int rhCaughtEggs;
+	public static int lhCaughtEggs;
+	public float timeScaleMultiplier = 1.0f;
+	public static float timeScale;
+
+	void InitDBLog() {
+
+		// init variables for logging to DB at end of each round
+		RehabMenu.totalEggs = 0;
+		RehabMenu.rhTime = 0.0f;
+		RehabMenu.lhTime = 0.0f;
+		RehabMenu.rhCaughtEggs = 0;
+		RehabMenu.lhCaughtEggs = 0;
+		RehabMenu.timeScale = timeScaleMultiplier;
+	}
+
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("RehabMenu Start()");
@@ -299,11 +333,14 @@ public class RehabMenu : MonoBehaviour {
 
 		RehabMenu.currentGame = gameNumber;
 
-		roundNum = 0; // begin at -1   // 0
+		RehabMenu.roundNum = 0; // begin at -1   // 0
 	//	showNextRoundScreen ();
 //		Time.timeScale = 0;
 //		camera.transform.Rotate (new Vector3 (0, 180, 0));
 //		menuScreenCount = 1;  // initialize to next round screen
+
+		InitDBLog();
+
 
 
 	//	scoreGUI.pixelOffset = new Vector2(-Screen.width/2+guiPadding , Screen.height/2-guiPadding);
@@ -325,6 +362,12 @@ public class RehabMenu : MonoBehaviour {
 	void Update () {
 	//	Debug.Log ("REhab Mnu update");
 	//	checkVelocity();
+	//	if (menuScreenCount % 2 == 0 && menuScreenCount>0 && menuScreenCount < 8) Debug.Log ("Menu Logggg");
+	//	if (Time.timeScale == 0 ) Debug.Log("TImescale  1 11 1 1 " + Time.deltaTime);
+		if (Time.timeScale == 1) {
+			if (RehabGestures.rightHandActive) rhTime += Time.deltaTime;
+			else lhTime += Time.deltaTime;
+		}
 	}
 
 
