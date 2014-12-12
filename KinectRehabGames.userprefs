@@ -1,20 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Rehab\Scripts\RehabGestures.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Rehab\Scripts\ROMImage.cs">
     <Files>
-      <File FileName="..\..\KinectROM\KinectROM.sln" Line="1" Column="1" />
-      <File FileName="..\..\KinectROM\Assets\OverlaySkeleton.cs" Line="1" Column="1" />
-      <File FileName="KinectRehabGames.sln" Line="1" Column="1" />
-      <File FileName="Assets\Rehab\Scripts\EggScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Rehab\Scripts\BGMusic.cs" Line="1" Column="1" />
-      <File FileName="Assets\Rehab\Scripts\RecordToDatabase.cs" Line="1" Column="1" />
-      <File FileName="Assets\Rehab\Scripts\SpawnerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Rehab\Scripts\RehabMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets\Rehab\Scripts\RehabGestures.cs" Line="305" Column="3" />
-      <File FileName="Assets\Rehab\Scripts\JointInfo.cs" Line="1" Column="1" />
-      <File FileName="Assets\ZigFu\Scripts\UserControls\ZigSkeleton.cs" Line="1" Column="1" />
-      <File FileName="Assets\Rehab\Scripts\GameSelect.cs" Line="1" Column="1" />
-      <File FileName="Assets\Rehab\Scripts\EggCollider.cs" Line="1" Column="1" />
+      <File FileName="Assets\Rehab\Scripts\ROM.cs" Line="8" Column="30" />
+      <File FileName="Assets\ZigFu\Scripts\UserControls\ZigSkeleton.cs" Line="268" Column="42" />
+      <File FileName="Assets\Rehab\Scripts\GameSelect.cs" Line="32" Column="1" />
+      <File FileName="Assets\Rehab\Scripts\ROMImage.cs" Line="13" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

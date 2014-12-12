@@ -15,13 +15,10 @@ public class ZigEngageSingleUser : MonoBehaviour {
     void Start() {
         // make sure we get zig events
         ZigInput.Instance.AddListener(gameObject);
-	//	Debug.Log ("User STart ");
     }
 
 	void EngageUser(ZigTrackedUser user) {
-
 		if (null == engagedTrackedUser) {
-
             engagedTrackedUser = user;
             foreach (GameObject go in EngagedUsers) user.AddListener(go);
             SendMessage("UserEngaged", this, SendMessageOptions.DontRequireReceiver);
@@ -41,7 +38,7 @@ public class ZigEngageSingleUser : MonoBehaviour {
         GameObject go = new GameObject("WaitForEngagement" + user.Id);
         go.transform.parent = transform;
 		objects[user.Id] = go;
-		Debug.Log ("User Engaged");
+
         // add various detectors & events
 
         if (RaiseHand) {

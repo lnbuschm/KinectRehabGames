@@ -48,22 +48,6 @@
   <ItemGroup>
      <Compile Include="Assets\Game 1 - Catch eggs\Scripts\BucketMover.cs" />
      <Compile Include="Assets\Game 1 - Catch eggs\Scripts\PlayerScript.cs" />
-     <Compile Include="Assets\Game 2 - Jump game\Scripts\EdgeTrigger.cs" />
-     <Compile Include="Assets\Game 2 - Jump game\Scripts\GameControl.cs" />
-     <Compile Include="Assets\Game 2 - Jump game\Scripts\GameGUI.cs" />
-     <Compile Include="Assets\Game 2 - Jump game\Scripts\Playermovement.cs" />
-     <Compile Include="Assets\Game 3 - Marble game\Scripts\GameoverTrigger.cs" />
-     <Compile Include="Assets\Game 3 - Marble game\Scripts\MarbleCamera.cs" />
-     <Compile Include="Assets\Game 3 - Marble game\Scripts\MarbleControl.cs" />
-     <Compile Include="Assets\Game 3 - Marble game\Scripts\MarbleGameManager.cs" />
-     <Compile Include="Assets\Game 4 - 3D breakout\Scripts\Ball.cs" />
-     <Compile Include="Assets\Game 4 - 3D breakout\Scripts\Block.cs" />
-     <Compile Include="Assets\Game 4 - 3D breakout\Scripts\BreakoutGame.cs" />
-     <Compile Include="Assets\Game 4 - 3D breakout\Scripts\Paddle.cs" />
-     <Compile Include="Assets\Game 5 - Shooting gallery\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Game 5 - Shooting gallery\Scripts\ObjectSpawner.cs" />
-     <Compile Include="Assets\Game 5 - Shooting gallery\Scripts\PlayerInput.cs" />
-     <Compile Include="Assets\MainMenu\MainMenuScript.cs" />
      <Compile Include="Assets\Rehab\Scripts\BGMusic.cs" />
      <Compile Include="Assets\Rehab\Scripts\BallThrow.cs" />
      <Compile Include="Assets\Rehab\Scripts\BatCollision.cs" />
@@ -73,6 +57,9 @@
      <Compile Include="Assets\Rehab\Scripts\EggScript.cs" />
      <Compile Include="Assets\Rehab\Scripts\GameSelect.cs" />
      <Compile Include="Assets\Rehab\Scripts\JointInfo.cs" />
+     <Compile Include="Assets\Rehab\Scripts\KeyboardListener.cs" />
+     <Compile Include="Assets\Rehab\Scripts\ROM.cs" />
+     <Compile Include="Assets\Rehab\Scripts\ROMImage.cs" />
      <Compile Include="Assets\Rehab\Scripts\RecordToDatabase.cs" />
      <Compile Include="Assets\Rehab\Scripts\RehabGestures.cs" />
      <Compile Include="Assets\Rehab\Scripts\RehabMenu.cs" />
@@ -80,12 +67,6 @@
      <Compile Include="Assets\Rehab\Scripts\Singleton.cs" />
      <Compile Include="Assets\Rehab\Scripts\SpawnerScript.cs" />
      <Compile Include="Assets\Rehab\Scripts\Tutorial.cs" />
-     <Compile Include="Assets\SQLITECLASS.cs" />
-     <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\ExitOnEscape.cs" />
-     <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\HSBColor.cs" />
-     <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\MenuController.cs" />
-     <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\RandomHSV.cs" />
-     <Compile Include="Assets\ZigFu\SampleScenes\_Data\Scripts\animatedTexture.cs" />
      <Compile Include="Assets\ZigFu\Scripts\UISessionControls\ZigFader.cs" />
      <Compile Include="Assets\ZigFu\Scripts\UISessionControls\ZigFollowHandPoint.cs" />
      <Compile Include="Assets\ZigFu\Scripts\UISessionControls\ZigPushDetector.cs" />
@@ -100,22 +81,21 @@
      <Compile Include="Assets\ZigFu\Scripts\UserEngagers\ZigEngageSingleSession.cs" />
      <Compile Include="Assets\ZigFu\Scripts\UserEngagers\ZigEngageSingleUser.cs" />
      <Compile Include="Assets\ZigFu\Scripts\UserEngagers\ZigEngageSplitScreen.cs" />
+     <Compile Include="Assets\ZigFu\Scripts\Viewers\AudioToEnergy.cs" />
      <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigDepthViewer.cs" />
      <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigDepthmapToParticles.cs" />
      <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigImageViewer.cs" />
+     <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigKinectAudioViewer.cs" />
+     <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigKinectAudioViewer3D.cs" />
+     <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigKinectBeamAngleViewer.cs" />
+     <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigKinectFullAudioViewer.cs" />
+     <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigSpeechViewer.cs" />
      <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigUserViewer.cs" />
      <Compile Include="Assets\ZigFu\Scripts\Viewers\ZigUsersRadar.cs" />
      <Compile Include="Assets\ZigFu\Scripts\Zig.cs" />
      <Compile Include="Assets\ZigFu\Scripts\_Internal\Matrix3.cs" />
      <Compile Include="Assets\ZigFu\Scripts\_Internal\TimedBuffer.cs" />
      <Compile Include="Assets\ZigFu\Scripts\_Internal\kinectSpecific.cs" />
-     <None Include="Assets\Standard Assets\Blob-Shadow\ShadowProjection.shader" />
-     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
-     <None Include="Assets\Standard Assets\Water\Sources\FX-Water Simple.shader" />
-     <None Include="Assets\Standard Assets\Gem Rendering\diamond shader.shader" />
- <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
  <Reference Include="Mono.Data.Sqlite">
  <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/Mono.Data.Sqlite.dll</HintPath>
  </Reference>
@@ -128,10 +108,6 @@
  <Reference Include="ZDK">
  <HintPath>C:/Users/Luke/Documents/UCSC-Thesis/KinectRehabGames/Assets/ZigFu/Scripts/_Internal/ZDK.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{F0D3A785-25DF-FBF1-6F7E-7C6571415D50}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -256,17 +256,19 @@ public class ZigSkeleton : MonoBehaviour
         {
             foreach (ZigInputJoint joint in user.Skeleton)
             {
-				if (joint.Id == ZigJointId.RightHand && RehabGestures.rightHandActive == false) continue;
-				else if (joint.Id == ZigJointId.LeftHand && RehabGestures.rightHandActive == true) continue;
-				else if (joint.Id == ZigJointId.RightElbow && RehabGestures.rightHandActive == false) {
-				//	Debug.Log ("Skipping Right Elbow");
-					continue;
+				if (RehabMenu.currentGame < 6) {
+					if (joint.Id == ZigJointId.RightHand && RehabGestures.rightHandActive == false) continue;
+					else if (joint.Id == ZigJointId.LeftHand && RehabGestures.rightHandActive == true) continue;
+					else if (joint.Id == ZigJointId.RightElbow && RehabGestures.rightHandActive == false) {
+					//	Debug.Log ("Skipping Right Elbow");
+						continue;
+					}
+					else if (joint.Id == ZigJointId.LeftElbow && RehabGestures.rightHandActive == true) continue;
 				}
-				else if (joint.Id == ZigJointId.LeftElbow && RehabGestures.rightHandActive == true) continue;
-
                 if (joint.GoodPosition) {
+
 					// if RightHand is default hand, add offset for Left hand position (x direction)
-					if (RehabGestures.rightHandDominant && joint.Id == ZigJointId.LeftHand) {
+						if (RehabGestures.rightHandDominant && joint.Id == ZigJointId.LeftHand && (RehabMenu.currentGame < 6)) {
 						joint.Position.x += RehabGestures.xHandOffset;
 						UpdatePosition(joint.Id, joint.Position);
 
@@ -278,7 +280,7 @@ public class ZigSkeleton : MonoBehaviour
 
 				//		Debug.Log ("Left elbow offset:");
 					}
-					else if (RehabGestures.rightHandDominant &&  joint.Id == ZigJointId.LeftElbow) {
+					else if (RehabGestures.rightHandDominant &&  joint.Id == ZigJointId.LeftElbow && RehabMenu.currentGame < 6) {
 						joint.Position.x += RehabGestures.xElbowOffset;
 
 						// Adjust gameobject rotation for left arm
