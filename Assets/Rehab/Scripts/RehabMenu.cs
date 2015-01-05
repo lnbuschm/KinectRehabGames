@@ -323,6 +323,12 @@ public class RehabMenu : MonoBehaviour {
 		_menuTimer1.Elapsed += new ElapsedEventHandler(_menuTimer1_Elapsed);
 		_menuTimer1.Enabled = true; // Enable it
 
+		RehabMenu.rightHandMultiplier = 1;
+		RehabMenu.leftHandMultiplier = 1;
+		RehabMenu.roundDifficulty = 1;
+		RehabMenu.lhScore = 0;
+		RehabMenu.rhScore = 0;
+		RehabMenu.theScore = 0;
 		// set difficulty sequence
 		difficultySequence = RehabMenu.rand.Next(difficulty.Length); // returns non-negative random # less than the argument
 		Debug.Log ("Difficulty sequence: " + difficultySequence);
@@ -340,6 +346,7 @@ public class RehabMenu : MonoBehaviour {
 //		menuScreenCount = 1;  // initialize to next round screen
 
 		InitDBLog();
+
 
 
 

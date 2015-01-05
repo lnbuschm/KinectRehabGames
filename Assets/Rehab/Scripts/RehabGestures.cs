@@ -123,8 +123,8 @@ public class RehabGestures : MonoBehaviour {
 			}
 
 		}
-	//	Debug.Log("Distance from Torso:  LH y: " + transformRelPosition [(int)ZigJointId.LeftHand][1] +
-	//		" RH y: " +  transformRelPosition [(int)ZigJointId.RightHand] [1]  );
+		Debug.Log("Distance from Torso:  LH y: " + transformRelPosition [(int)ZigJointId.LeftHand][1] +
+			" RH y: " +  transformRelPosition [(int)ZigJointId.RightHand] [1]  );
 
 
 
@@ -177,6 +177,20 @@ public class RehabGestures : MonoBehaviour {
 					rightHandActive = false;
 				 }
 				*/
+
+				// Compare left and right hands position for active hand
+				float[] avgPosArrLH = TrackAvgPosition(LHjoint);
+				float[] avgPosArrRH = TrackAvgPosition(RHjoint);
+				if (avgPosArrRH[1] > avgPosArrLH[1] && rightHandActive==false) {
+					Debug.Log ("Right Side Active!");
+					rightHandActive = true;
+				}
+				else if (avgPosArrLH[1] > avgPosArrRH[1] && rightHandActive==true){
+					Debug.Log ("Left Side Active!");
+					rightHandActive = false;
+				}
+
+				/*
 				// Compare left and right hands with torso joint for relative position
 				float[][] relPosArr = TrackAvgRelPosition(user.Skeleton);
 				if (relPosArr[(int)ZigJointId.LeftHand][1] > relPosArr[(int)ZigJointId.RightHand][1] && rightHandActive==false) {
@@ -188,6 +202,8 @@ public class RehabGestures : MonoBehaviour {
 					Debug.Log ("Left Side Active!");
 					rightHandActive = false;
 				}
+*/
+
 
 				if (RehabMenu.currentGame == 0) {
 					// Set cursor position for menu control

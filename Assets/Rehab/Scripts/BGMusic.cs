@@ -12,7 +12,9 @@ public class BGMusic : MonoBehaviour {
 
 	void playRandomMusic() {
 		audio.clip = bgMusic[Random.Range(0, bgMusic.Length)]; 
-	//	audio.Play();   // commented out for debug :)
+		audio.volume = 0.5f;
+		audio.Play ();   // commented out for debug :)
+
 	}
 	// Use this for initialization
 	void Start () {

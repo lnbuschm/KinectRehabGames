@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ExitOnEscape : MonoBehaviour {
+public class KeyboardListener : MonoBehaviour {
 
     string GetScreenshotFilename()
     {
@@ -15,16 +15,19 @@ public class ExitOnEscape : MonoBehaviour {
 	
 	void Start()
 	{
+		/*
 		foreach (string cmd in System.Environment.GetCommandLineArgs())
 		{
 			if ("wide" == cmd) {
 				Screen.SetResolution(1280, 720, true);
 			}
 		}
+		*/
 	}
 
     void OnGUI()
     {
+	 //	if (ROMImage.romImage == 1) 
         if (Event.current.Equals(Event.KeyboardEvent("escape"))) {
             print("Quitting");
             Application.Quit();

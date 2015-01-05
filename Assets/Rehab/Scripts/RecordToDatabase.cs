@@ -228,7 +228,20 @@ public class RecordToDatabase : MonoBehaviour {
 
 	}
 
+	void ROM_Stamp_DB() {
 
+		
+		string sql = "INSERT INTO " + tableName + 
+			" (t, gameNum, roundNum, difficulty) " + 
+				"VALUES ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'";
+
+		sql += ", " + ROMImage.romImage + ", " + 99 + ", " + ROMImage.romImage + "); ";
+
+		Debug.Log (sql);
+		
+		InsertRecord(sql);
+		
+	}
 	
 
 	void Zig_UpdateUser(ZigTrackedUser user)
