@@ -18,9 +18,10 @@ public class BatCollision : MonoBehaviour {
 		///    GameObject collisionGO = theCollision.gameObject;
 		//    Destroy(collisionGO);
 		
+		GameObject.Find ("SoundFX").audio.PlayOneShot(scoreSound, 1.0f);
 
 		GameObject.Find ("EggPitchSpawn").SendMessage("SpawnEgg");
-		Debug.Log ("Ball hit,..  spawn Pitch");
+		//Debug.Log ("Ball hit,..  spawn Pitch");
 		//	RehabMenu.theScore++;
 		//    myPlayerScript.theScore++;
 		RehabMenu.Score ();

@@ -211,7 +211,7 @@ public class RehabMenu : MonoBehaviour {
 			}
 			else if ((menuScreenCount % 2 == 1) && (menuScreenCount < 9)) { // == 1) {
 
-				GameObject.Find ("Database").SendMessage("WriteToDB");
+				GameObject.Find ("Database").SendMessage("WriteToDB");  // move to next menu screen??
 				showNextRoundScreen1 = true;
 				_roundTimer.Stop ();
 				InitDBLog();
@@ -374,6 +374,14 @@ public class RehabMenu : MonoBehaviour {
 		if (Time.timeScale == 1) {
 			if (RehabGestures.rightHandActive) rhTime += Time.deltaTime;
 			else lhTime += Time.deltaTime;
+		}
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			Time.timeScale = 1.0f;
+			_roundTimer.Stop() ;
+			_textTimer1.Stop () ;
+			_menuTimer1.Stop ();
+			GameObject.Find ("Database").SendMessage("WriteToDB");
+			Application.LoadLevel("GameSelect");
 		}
 	}
 
