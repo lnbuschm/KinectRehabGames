@@ -160,9 +160,17 @@ public class ZigSkeleton : MonoBehaviour
         {
             RotateToCalibrationPose();
         }
+
+		// Modified by LNB 1/7/2015   -- unnecessary
+	//	Scale.x *= RehabGestures.handicapScale;
+	//	Scale.y *= RehabGestures.handicapScale;
+	//	Scale.z *= RehabGestures.handicapScale;
+
+		// These static variables are used for data logging only
 		ZigSkeleton.xScale = Scale.x;
 		ZigSkeleton.yScale = Scale.y;
 		ZigSkeleton.zScale = Scale.z;
+
     }
 
     void UpdateRoot(Vector3 skelRoot)
@@ -213,7 +221,12 @@ public class ZigSkeleton : MonoBehaviour
 
         if (UpdateJointPositions)
         {
-            Vector3 dest = Vector3.Scale(position, doMirror(Scale)) - rootPosition;
+			// MOdified LNB 1/8/2015  to add a separate sensitivity for weak side
+			Vector3 Scaletmp;
+			if (RehabGestures.rightHandActive && RehabGestures.rightHandDominant || 
+			    !RehabGestures.rightHandActive && !RehabGestures.rightHandDominant) Scaletmp = Scale * RehabGestures.moveSensitivityDominant;
+			else Scaletmp = Scale;
+            Vector3 dest = Vector3.Scale(position, doMirror(Scaletmp)) - rootPosition;
             transforms[(int)joint].localPosition = Vector3.Lerp(transforms[(int)joint].localPosition, dest, Time.deltaTime * Damping);
         }
     }
@@ -291,8 +304,8 @@ public class ZigSkeleton : MonoBehaviour
 						if(RehabMenu.currentGame == 4){
 							// Right side rotation:   { 0 , 20 , 285 }
 							// Left side:  
-							joint.Position.x += RehabGestures.xElbowOffset*0.75f/3.0f;
-							initialRotations[(int)ZigJointId.LeftElbow] = Quaternion.Euler(new Vector3(0,180,285));
+							joint.Position.x += RehabGestures.xElbowOffset*0.75f/3.0f * RehabGestures.moveSensitivityDominant;
+							initialRotations[(int)ZigJointId.LeftElbow] = Quaternion.Euler(new Vector3(0,163,285));  // 285
 						}
 
 						UpdatePosition(joint.Id, joint.Position);

@@ -4,8 +4,31 @@ using System;
 using System.Timers;
 // Y position bias: 2.25
 public class RehabGestures : MonoBehaviour {
-	public static float moveSensitivity = 2.0f;
-	public static Boolean rightHandDominant = true;
+
+	/*
+	// CALIBRATION VARIABLES  -- MODIFY THESE PER USER
+	//   These are set during the user's introduction to the system
+	*/
+	//  DEFAULT
+	public static float moveSensitivity = 2.0f; // Move sensitivity multiplier - multiplies the motion of the user's body with the controlled game piece  (default 2.0f)
+	public static float moveSensitivityDominant = 1.0f; // Move sensitivity multiplier for dominant side ONLY.  Multiplies AFTER moveSensitivity (compounds it)
+	public static Boolean rightHandDominant = true;   // WHICH SIDE IS THE USER's DOMINANT? Right side = true,  Left side = false
+	//  USER 1 (THURSDAY 11AM)    AGE:    SEX:   
+//	public static float moveSensitivity = 2.0f; 
+//	public static float moveSensitivityDominant = 1.0f; 
+//	public static Boolean rightHandDominant = true;  
+	//  USER 2
+//	public static float moveSensitivity = 2.0f; 
+//	public static Boolean rightHandDominant = true;  
+	//  USER 3
+
+	//  USER 4
+
+	//	public static float handicapScale = 1.5f;   // Multiplies with ZigFu scale movement  (Default 1.0f)
+	//
+	// END CALIBRATION VARIABLES
+	//
+
 	public static Boolean rightHandActive = true;
 	public float velocityAvgDampfactor = 25.0f;
 	public float positionAvgDampfactor = 15.0f;

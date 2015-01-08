@@ -36,7 +36,9 @@ public class EggPitchSpawn : MonoBehaviour {
 	{
 		Debug.Log ("Ball Pitch Spawned !");
 		float addXPos = Random.Range(eggSpawnMin, eggSpawnMax);
-		Vector3 spawnPos = transform.position + new Vector3(addXPos,1.5f,9.0f);
+	//	Vector3 spawnPos = transform.position + new Vector3(addXPos,1.5f,9.0f);
+		Vector3 spawnPos = transform.position + new Vector3(addXPos,2.0f,15.0f);
+
 		Instantiate(eggPrefab, spawnPos, Quaternion.identity);
 	}
 }

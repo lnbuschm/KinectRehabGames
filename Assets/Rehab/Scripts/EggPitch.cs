@@ -33,7 +33,9 @@ public class EggPitch : MonoBehaviour {
 		float fallSpeed = 0.5f * Time.deltaTime;
 		// fall speed based on difficulty
 		//	float throwSpeed =  0.7094323671f * Mathf.Log((float)RehabMenu.GetDifficulty ()) + 1.4f * Time.deltaTime;
-		float throwSpeed =   (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty()) + 1.455748877f ) * Time.deltaTime;
+		//float throwSpeed =   (1.235663303f * Mathf.Log((float)RehabMenu.GetDifficulty()) + 1.455748877f ) * Time.deltaTime;
+
+
 		//	float throwSpeed =  3.25f * Time.deltaTime;
 		
 		//float throwSpeed =  2.0f * Time.deltaTime;
@@ -45,7 +47,7 @@ public class EggPitch : MonoBehaviour {
 		// float throwSpeed = 2 * Time.deltaTime;
 
 
-		Time.timeScale = RehabMenu.GetDifficulty();
+		Time.timeScale = RehabMenu.GetDifficulty()*0.8f + 1.25f;
 		transform.position -= new Vector3(0, yDamp*Time.deltaTime, Time.deltaTime*3.0f);
 
 	//	transform.position -= new Vector3(0, yDamp*Time.deltaTime, throwSpeed*2.5f);

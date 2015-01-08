@@ -168,6 +168,7 @@ public class RecordToDatabase : MonoBehaviour {
 	}
 
 	void WriteToDB() {
+		Debug.Log ("Write to DB!");
 		// insert all entries in 'list' into the database
 		foreach(JointInfo j in list) {
 			string sql = "INSERT INTO " + tableName + " (t";
