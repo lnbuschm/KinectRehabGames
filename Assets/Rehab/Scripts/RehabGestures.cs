@@ -13,7 +13,10 @@ public class RehabGestures : MonoBehaviour {
 	public static float moveSensitivity = 2.0f; // Move sensitivity multiplier - multiplies the motion of the user's body with the controlled game piece  (default 2.0f)
 	public static float moveSensitivityDominant = 1.0f; // Move sensitivity multiplier for dominant side ONLY.  Multiplies AFTER moveSensitivity (compounds it)
 	public static Boolean rightHandDominant = true;   // WHICH SIDE IS THE USER's DOMINANT? Right side = true,  Left side = false
-	//  USER 1 (THURSDAY 11AM)    AGE:    SEX:   
+	//public static float timeScaleMultiplier = 1.0f;
+	//  USER 1 (THURSDAY 11AM)    AGE:  63   SEX:  M  Dominant: RIGHT   
+	// game was too fast overall in first session, so try slowing timescale (let's try 0.75 for session 2)
+	public static float timeScaleMultiplier = 0.75f;
 //	public static float moveSensitivity = 2.0f; 
 //	public static float moveSensitivityDominant = 1.0f; 
 //	public static Boolean rightHandDominant = true;  

@@ -29,6 +29,18 @@ public class RehabMenu : MonoBehaviour {
 	Timer _textTimer1; 
 	Timer _menuTimer1; 
 
+	public int roundTimeMS = 10000; // 30000; // 30 seconds
+	
+	// variables for DB logging
+	public static int totalEggs;
+	public static float rhTime;
+	public static float lhTime;
+	public static int rhCaughtEggs;
+	public static int lhCaughtEggs;
+	//private float timeScaleMultiplier = 1.0f;
+	public static float timeScale;
+	
+
 	private static int difficultySequence = 1;
 	public static int roundDifficulty = 1;
 	public int guiPadding = 10;
@@ -203,7 +215,7 @@ public class RehabMenu : MonoBehaviour {
 				_menuTimer1.Start ();
 			}
 			else if (menuScreenCount > 9) {
-				Time.timeScale = 1.0f;
+				Time.timeScale = RehabGestures.timeScaleMultiplier; //1.0f;
 				_roundTimer.Stop() ;
 				_textTimer1.Stop () ;
 				_menuTimer1.Stop ();
@@ -218,7 +230,7 @@ public class RehabMenu : MonoBehaviour {
 			} 
 			else if (menuScreenCount < 9) {
 				camera.transform.Rotate (new Vector3 (0, 180, 0));
-				Time.timeScale=1;
+				Time.timeScale = RehabGestures.timeScaleMultiplier; //1;
 			//	RehabMenu.lhTime = 0;
 			//	RehabMenu.rhTime = 0;
 				SpawnerScript.autoSpawn = true;
@@ -283,16 +295,7 @@ public class RehabMenu : MonoBehaviour {
 	//	GameObject.Find (-1063142)
 	}   
 
-	public int roundTimeMS = 10000; // 30000; // 30 seconds
 
-	// variables for DB logging
-	public static int totalEggs;
-	public static float rhTime;
-	public static float lhTime;
-	public static int rhCaughtEggs;
-	public static int lhCaughtEggs;
-	public float timeScaleMultiplier = 1.0f;
-	public static float timeScale;
 
 	void InitDBLog() {
 
@@ -302,7 +305,7 @@ public class RehabMenu : MonoBehaviour {
 		RehabMenu.lhTime = 0.0f;
 		RehabMenu.rhCaughtEggs = 0;
 		RehabMenu.lhCaughtEggs = 0;
-		RehabMenu.timeScale = timeScaleMultiplier;
+		RehabMenu.timeScale = RehabGestures.timeScaleMultiplier;
 	}
 
 	// Use this for initialization
@@ -371,12 +374,12 @@ public class RehabMenu : MonoBehaviour {
 	//	checkVelocity();
 	//	if (menuScreenCount % 2 == 0 && menuScreenCount>0 && menuScreenCount < 8) Debug.Log ("Menu Logggg");
 	//	if (Time.timeScale == 0 ) Debug.Log("TImescale  1 11 1 1 " + Time.deltaTime);
-		if (Time.timeScale == 1) {
+		if (Time.timeScale != 0.0f) {
 			if (RehabGestures.rightHandActive) rhTime += Time.deltaTime;
 			else lhTime += Time.deltaTime;
 		}
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			Time.timeScale = 1.0f;
+			Time.timeScale = RehabGestures.timeScaleMultiplier; // 1.0f;
 			_roundTimer.Stop() ;
 			_textTimer1.Stop () ;
 			_menuTimer1.Stop ();

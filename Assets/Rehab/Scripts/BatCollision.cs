@@ -9,8 +9,8 @@ public class BatCollision : MonoBehaviour {
 	{
 		//In this game we don't need to check *what* we hit; it must be the eggs
 		if (theCollision.gameObject.name == "default") return;
-		Debug.Log ("Colision name:" + theCollision.gameObject.name);
-		Vector3 spawnPos = theCollision.gameObject.transform.position; // .position + new Vector3(0.0f,1.5f,9.0f);
+	//	Debug.Log ("Colision name:" + theCollision.gameObject.name);
+	//	Vector3 spawnPos = theCollision.gameObject.transform.position; // .position + new Vector3(0.0f,1.5f,9.0f);
 	//	Instantiate(particles, spawnPos, Quaternion.identity);   // uncomment to enable particles on hit
 
 
