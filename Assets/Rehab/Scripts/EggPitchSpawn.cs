@@ -12,6 +12,7 @@ public class EggPitchSpawn : MonoBehaviour {
 	public float eggSpawnMin = -3.0f;
 	public float eggSpawnMax = 3.0f;
 	public static bool autoSpawn = true;
+	public static bool eggCurrentlySpawned = false;
 	void Update () {
 		//	spawnRate = RehabMenu.GetDifficulty ();
 		//       if (nextEggTime < Time.time)
@@ -40,5 +41,6 @@ public class EggPitchSpawn : MonoBehaviour {
 		Vector3 spawnPos = transform.position + new Vector3(addXPos,2.0f,15.0f);
 
 		Instantiate(eggPrefab, spawnPos, Quaternion.identity);
+		RehabMenu.totalEggs++;
 	}
 }

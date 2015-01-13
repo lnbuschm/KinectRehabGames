@@ -49,7 +49,6 @@
      <Compile Include="Assets\Game 1 - Catch eggs\Scripts\BucketMover.cs" />
      <Compile Include="Assets\Game 1 - Catch eggs\Scripts\PlayerScript.cs" />
      <Compile Include="Assets\Rehab\Scripts\BGMusic.cs" />
-     <Compile Include="Assets\Rehab\Scripts\BallThrow.cs" />
      <Compile Include="Assets\Rehab\Scripts\BatCollision.cs" />
      <Compile Include="Assets\Rehab\Scripts\EggCollider.cs" />
      <Compile Include="Assets\Rehab\Scripts\EggPitch.cs" />

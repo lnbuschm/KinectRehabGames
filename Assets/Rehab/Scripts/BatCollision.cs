@@ -17,8 +17,8 @@ public class BatCollision : MonoBehaviour {
 
 		///    GameObject collisionGO = theCollision.gameObject;
 		//    Destroy(collisionGO);
-		
-		GameObject.Find ("SoundFX").audio.PlayOneShot(scoreSound, 1.0f);
+		Destroy (theCollision.gameObject);
+
 
 		GameObject.Find ("EggPitchSpawn").SendMessage("SpawnEgg");
 		//Debug.Log ("Ball hit,..  spawn Pitch");
@@ -27,7 +27,9 @@ public class BatCollision : MonoBehaviour {
 		RehabMenu.Score ();
 		//	GameObject.Find ("SoundFX").audio.PlayOneShot(scoreSound, 1.0f);  // this sound fx fucks up the spawning
 	//	audio.PlayOneShot(scoreSound, 1.0f);  // this sound fx fucks up the spawning
-		Destroy (theCollision.gameObject);
+
+
+		GameObject.Find ("SoundFX").audio.PlayOneShot(scoreSound, 1.0f);
 	
 
 	}

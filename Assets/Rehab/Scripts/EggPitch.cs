@@ -25,7 +25,7 @@ public class EggPitch : MonoBehaviour {
 		//		float randFallSpeed = (float)rand.NextDouble () * (maxFallSpeed - minFallSpeed) + minFallSpeed;
 		//		float throwSpeed = randFallSpeed * Time.deltaTime;
 		if (Time.timeScale == 0.0f) {
-				Debug.Log (" Destroy Pitch!");
+		//		Debug.Log (" Destroy Pitch!");
 			Destroy (gameObject);
 			return;
 		}
@@ -47,7 +47,7 @@ public class EggPitch : MonoBehaviour {
 		// float throwSpeed = 2 * Time.deltaTime;
 
 
-		Time.timeScale = RehabMenu.GetDifficulty()*0.8f + 1.25f;
+		Time.timeScale = (RehabMenu.GetDifficulty()*0.8f + 1.25f) * RehabGestures.timeScaleMultiplier;
 		transform.position -= new Vector3(0, yDamp*Time.deltaTime, Time.deltaTime*3.0f);
 
 	//	transform.position -= new Vector3(0, yDamp*Time.deltaTime, throwSpeed*2.5f);
