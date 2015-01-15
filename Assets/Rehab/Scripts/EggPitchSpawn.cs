@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class EggPitchSpawn : MonoBehaviour {
 
@@ -13,6 +14,8 @@ public class EggPitchSpawn : MonoBehaviour {
 	public float eggSpawnMax = 3.0f;
 	public static bool autoSpawn = true;
 	public static bool eggCurrentlySpawned = false;
+	public DateTime lastSpawnTime;
+
 	void Update () {
 		//	spawnRate = RehabMenu.GetDifficulty ();
 		//       if (nextEggTime < Time.time)
@@ -29,18 +32,25 @@ public class EggPitchSpawn : MonoBehaviour {
 		}
 	}
 	void Start () {
+		lastSpawnTime = DateTime.Now;
 	//	RehabMenu.currentGame = 3;
 		//	SpawnEgg(); 
 		//	Debug.Log (" SSOAWWN  SPAWN EGG !!!" ) ;
 	}
 	void SpawnEgg()
 	{
-		Debug.Log ("Ball Pitch Spawned !");
-		float addXPos = Random.Range(eggSpawnMin, eggSpawnMax);
-	//	Vector3 spawnPos = transform.position + new Vector3(addXPos,1.5f,9.0f);
-		Vector3 spawnPos = transform.position + new Vector3(addXPos,2.0f,15.0f);
-
-		Instantiate(eggPrefab, spawnPos, Quaternion.identity);
-		RehabMenu.totalEggs++;
+	//	if (lastSpawnTime.Subtract(System.DateTime.Now).CompareTo(new TimeSpan(0,0,0,0,200)) > 0){
+	//		Debug.Log ("Less than 200ms");
+	//		Debug.LogWarning("ERROR!!!  BALL SPAWN ERROR");
+	//	}
+	//	else {
+			Debug.Log ("Ball Pitch Spawned !");
+			float addXPos =   UnityEngine.Random.Range(eggSpawnMin,eggSpawnMax); //Random.Range(eggSpawnMin, eggSpawnMax);
+		//	Vector3 spawnPos = transform.position + new Vector3(addXPos,1.5f,9.0f);
+			Vector3 spawnPos = transform.position + new Vector3(addXPos,4.0f,15.0f);  //addXPos,2.0f,15.0f);
+	//		lastSpawnTime = DateTime.Now;
+			Instantiate(eggPrefab, spawnPos, Quaternion.identity);
+			RehabMenu.totalEggs++;
+	//	}
 	}
 }

@@ -16,7 +16,7 @@ public class RehabGestures : MonoBehaviour {
 	//public static float timeScaleMultiplier = 1.0f;
 	//  USER 1 (THURSDAY 11AM)    AGE:  63   SEX:  M  Dominant: RIGHT   
 	// game was too fast overall in first session, so try slowing timescale (let's try 0.75 for session 2)
-	public static float timeScaleMultiplier = 0.63f;
+	public static float timeScaleMultiplier = 0.63f;   /// 0.63 is good (1/14/2015)
 //	public static float moveSensitivity = 2.0f; 
 //	public static float moveSensitivityDominant = 1.0f; 
 //	public static Boolean rightHandDominant = true;  
