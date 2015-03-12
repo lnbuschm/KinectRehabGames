@@ -48,6 +48,9 @@ public class EggScript : MonoBehaviour {
 		else if (RehabMenu.currentGame == 4) {
 			fallSpeed =  (1.435663303f * Mathf.Log((float)RehabMenu.GetDifficulty())+2.95f ) * Time.deltaTime;
 		}
+
+	//	Debug.Log ("Timescale: " + Time.timeScale + " , game= " + RehabMenu.currentGame + ", fallspeed = " + fallSpeed/Time.deltaTime + ", Difficulty: " + RehabMenu.GetDifficulty());
+
 		//float fallSpeed =  2.0f * Time.deltaTime;
 		//	Debug.Log("Fall Speed: " + fallSpeed);
 

@@ -386,6 +386,7 @@ public class RehabMenu : MonoBehaviour {
 			GameObject.Find ("Database").SendMessage("WriteToDB");
 			Application.LoadLevel("GameSelect");
 		}
+	//	Debug.Log ("Timescale: " + Time.timeScale + " , game= " + RehabMenu.currentGame + ", Difficulty: " + RehabMenu.GetDifficulty());
 	}
 
 

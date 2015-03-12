@@ -185,7 +185,7 @@ public class RecordToDatabase : MonoBehaviour {
 			
 			sql += insertVals;
 			
-			//		Debug.Log (sql);
+				//	Debug.Log (sql);//temporarily uncommented2/16/2015
 			
 			InsertRecord(sql);
 		}
@@ -312,7 +312,7 @@ public class RecordToDatabase : MonoBehaviour {
 				
 				sql += insertVals;
 				
-		//		Debug.Log (sql);
+				Debug.Log (sql);
 				
 				InsertRecord(sql);
 			}

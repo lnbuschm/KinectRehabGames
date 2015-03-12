@@ -117,7 +117,26 @@ public class GameSelect : MonoBehaviour {
 				if (pointerLocationX > gameBoxes[i][0] && pointerLocationX < gameBoxes[i][0]+gameBoxes[i][2] &&
 				    pointerLocationY > gameBoxes[i][1] && pointerLocationY < gameBoxes[i][1]+gameBoxes[i][3]) {
 					int game = i+1;
-					chosenGameText.text = "Game " + game  + " Selected";
+					string gameString;
+					switch (game){
+					case 1:
+						gameString = "Egg Drop";
+						break;
+					case 2:
+						gameString = "Stars";
+						break;
+					case 3:
+						gameString = "Bat";
+						break;
+					case 4:
+						gameString = "Fried Egg";
+						break;
+					default:
+						gameString = "error...";
+						break;
+					}
+				//	chosenGameText.text = "Game " + game  + " Selected";
+					chosenGameText.text = gameString  + " Selected";
 					if (selectedGame != game)  hoverTimeStart = DateTime.Now;
 					selectedGame = game;
 		//			Debug.Log ("hover time : " + hoverTimeStart);
